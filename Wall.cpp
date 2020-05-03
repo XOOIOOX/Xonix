@@ -15,11 +15,12 @@ void Wall::setCellType(CellType cellType)
 void Wall::setPosition(QPoint pos)
 {
 	position = pos;
+	setPos(position * TileSize);
 }
 
 void Wall::advance(int phase)
 {
-	if (phase) { setPos(position * TileSize); }
+	//if (phase) {  }
 }
 
 void Wall::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
