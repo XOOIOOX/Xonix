@@ -44,7 +44,7 @@ void Xonix::fillScene()
 {
 	for (int x = 0; x < LevelWidth; x++)
 	{
-		for (int y = 0; y < LevelWidth; y++)
+		for (int y = 0; y < LevelHeigth; y++)
 		{
 			if (centralData.matrixCells(x, y) == Full)
 			{

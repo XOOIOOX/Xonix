@@ -17,7 +17,7 @@
 // Константы
 //////////////////////////////////////////////////////////////////////////
 
-constexpr auto LevelWidth = 40;															// ширина уровня в тайлах
+constexpr auto LevelWidth = 80;															// ширина уровня в тайлах
 constexpr auto LevelHeigth = 40;														// высота уровня в тайлах
 constexpr auto TileSize = 8;															// размер тайла
 constexpr auto BorderSize = 4;															// размер начального бордюра
