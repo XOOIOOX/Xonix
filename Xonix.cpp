@@ -20,6 +20,11 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	centralData.monsterList.push_back(makeItem<Monster>(centralData));
 	centralData.monsterList.push_back(makeItem<Monster>(centralData));
 	centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	centralData.monsterList.push_back(makeItem<Monster>(centralData));
 
 	centralData.matrixCells(20, 20) = Full;
 	centralData.matrixCells(20, 21) = Full;

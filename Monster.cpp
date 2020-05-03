@@ -6,11 +6,13 @@ Monster::Monster(CentralDataStruct& data) : QGraphicsEllipseItem(nullptr), centr
 {
 	setRect(0, 0, TileSize, TileSize);
 	direction = { randomSign(), randomSign() };
-	position = { (rand() % (LevelWidth - BorderSizeMonster * 2) + BorderSizeMonster), (rand() % (LevelHeigth - BorderSizeMonster * 2) + BorderSizeMonster) };
+	positionNew = { (rand() % (LevelWidth - BorderSizeMonster * 2) + BorderSizeMonster), (rand() % (LevelHeigth - BorderSizeMonster * 2) + BorderSizeMonster) };
 	centralData.scene->addItem(this);
 	positionTimer = new QTimer(this);
+	positionPortionTimer = new QTimer(this);
 	positionTimer->start(MonsterTimer);
 	connect(positionTimer, SIGNAL(timeout()), this, SLOT(positionChangeSlot()));
+	connect(positionPortionTimer, SIGNAL(timeout()), this, SLOT(positionRealChangeSlot()));
 }
 
 Monster::~Monster()
@@ -19,8 +21,7 @@ Monster::~Monster()
 }
 
 void Monster::advance(int phase)
-{
-}
+{}
 
 void Monster::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
@@ -32,15 +33,23 @@ int Monster::randomSign() { return rand() % 2 ? 1 : -1; }
 
 void Monster::positionChangeSlot()
 {
-	if ((centralData.matrixCells(position.x() + direction.x(), position.y()) || (centralData.matrixCells(position.x() - direction.x(), position.y()))) == Full)
+	positionOld = positionNew;
+	positionPortion = { 0.0, 0.0 };
+	if ((centralData.matrixCells(positionOld.x() + direction.x(), positionOld.y()) || (centralData.matrixCells(positionOld.x() - direction.x(), positionOld.y()))) == Full)
 	{
 		direction.rx() = -direction.x();
 	}
-	if ((centralData.matrixCells(position.x(), position.y() + direction.y()) || (centralData.matrixCells(position.x(), position.y() - direction.y()))) == Full)
+	if ((centralData.matrixCells(positionOld.x(), positionOld.y() + direction.y()) || (centralData.matrixCells(positionOld.x(), positionOld.y() - direction.y()))) == Full)
 	{
 		direction.ry() = -direction.y();
 	}
 
-	position += direction;
-	setPos(position * TileSize);
+	positionNew = positionOld + direction;
+	positionPortionTimer->start(MonsterTimer / MonsterAnimationStep);
+}
+
+void Monster::positionRealChangeSlot()
+{
+	positionPortion += (static_cast<QPointF>(direction * TileSize)) / static_cast<double>(MonsterAnimationStep);
+	setPos(static_cast<QPointF>(positionOld * TileSize) + positionPortion);
 }
