@@ -4,6 +4,7 @@
 #include "ui_Xonix.h"
 #include "Viewport.h"
 #include "GlobalDefs.h"
+#include "CentralDataStruct.h"
 
 class Xonix : public QMainWindow
 {
@@ -14,4 +15,7 @@ public:
 
 private:
 	Ui::Xonix ui;
+	Viewport* view;
+	CentralDataStruct centralData;
+	QTimer* animationTimer;
 };

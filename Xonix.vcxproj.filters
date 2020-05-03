@@ -57,5 +57,8 @@
     <ClInclude Include="GlobalDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CentralDataStruct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
