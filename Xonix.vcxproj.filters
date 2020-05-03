@@ -48,6 +48,9 @@
     <QtMoc Include="Viewport.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Monster.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Xonix.ui">
@@ -67,9 +70,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

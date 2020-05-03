@@ -1,10 +1,13 @@
 #pragma once
 #include <qgraphicsitem.h>
+#include <QTimer>
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
 
-class Monster : public QGraphicsEllipseItem, QObject
+class Monster : public QObject, QGraphicsEllipseItem
 {
+	Q_OBJECT
+
 public:
 	Monster(CentralDataStruct& data);
 	Monster(const Monster& monster) : Monster(monster.centralData) {};
@@ -20,13 +23,10 @@ private:
 	CentralDataStruct& centralData;
 	QPoint position{ BadItemPos };
 	QPoint direction{ 1, 1 };
-	//Unmap<MonsterDirection, QPoint> directionMap
-	//{
-	//	{ LeftUp, { -1, -1 } },
-	//	{ LeftDown, { -1, 1 } },
-	//	{ RightUp, { 1, -1 } },
-	//	{ RightDown, { 1, 1 } }
-	//};
+	QTimer* positionTimer;
 
 	int randomSign();
+
+private slots:
+	void positionChangeSlot();
 };

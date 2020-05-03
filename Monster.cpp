@@ -8,6 +8,9 @@ Monster::Monster(CentralDataStruct& data) : QGraphicsEllipseItem(nullptr), centr
 	direction = { randomSign(), randomSign() };
 	position = { (rand() % (LevelWidth - BorderSizeMonster * 2) + BorderSizeMonster), (rand() % (LevelHeigth - BorderSizeMonster * 2) + BorderSizeMonster) };
 	centralData.scene->addItem(this);
+	positionTimer = new QTimer(this);
+	positionTimer->start(MonsterTimer);
+	connect(positionTimer, SIGNAL(timeout()), this, SLOT(positionChangeSlot()));
 }
 
 Monster::~Monster()
@@ -17,24 +20,6 @@ Monster::~Monster()
 
 void Monster::advance(int phase)
 {
-	if (!phase)
-	{
-		if ((centralData.matrixCells(position.x() + direction.x(), position.y()) || (centralData.matrixCells(position.x() - direction.x(), position.y()))) == Full)
-		{
-			direction.rx() = -direction.x();
-		}
-		if ((centralData.matrixCells(position.x(), position.y() + direction.y()) || (centralData.matrixCells(position.x(), position.y() - direction.y()))) == Full)
-		{
-			direction.ry() = -direction.y();
-		}
-
-		position += direction;
-		setPos(position * TileSize);
-	}
-	else
-	{
-		update();
-	}
 }
 
 void Monster::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
@@ -44,3 +29,18 @@ void Monster::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, Q
 }
 
 int Monster::randomSign() { return rand() % 2 ? 1 : -1; }
+
+void Monster::positionChangeSlot()
+{
+	if ((centralData.matrixCells(position.x() + direction.x(), position.y()) || (centralData.matrixCells(position.x() - direction.x(), position.y()))) == Full)
+	{
+		direction.rx() = -direction.x();
+	}
+	if ((centralData.matrixCells(position.x(), position.y() + direction.y()) || (centralData.matrixCells(position.x(), position.y() - direction.y()))) == Full)
+	{
+		direction.ry() = -direction.y();
+	}
+
+	position += direction;
+	setPos(position * TileSize);
+}

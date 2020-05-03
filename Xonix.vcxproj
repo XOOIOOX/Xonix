@@ -103,7 +103,7 @@
   <ItemGroup>
     <ClInclude Include="CentralDataStruct.h" />
     <ClInclude Include="GlobalDefs.h" />
-    <ClInclude Include="Monster.h" />
+    <QtMoc Include="Monster.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

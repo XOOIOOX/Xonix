@@ -29,8 +29,10 @@ constexpr auto TileSize = 8;															// размер тайла
 constexpr auto BorderSize = 4;															// размер начального бордюра
 constexpr auto BorderSizeMonster = BorderSize + 1;										// размер начального бордюра для монстров
 constexpr auto AinmationFps = 60;														// кадров в секунду
-constexpr auto BadPos = -1;																// неверная позиция итема
-constexpr QPoint BadItemPos = QPoint{ BadPos, BadPos };
+constexpr auto MonsterTimer = 20;														// интервал действия монстра (мс)
+constexpr auto BadPos = -1;																// неверная позиция 
+constexpr QPoint BadItemPos = QPoint{ BadPos, BadPos };									// неверная позиция итема
+
 
 //////////////////////////////////////////////////////////////////////////
 // Общие енумы
@@ -40,11 +42,6 @@ enum PlayerDirection																	// направление движения 
 {
 	Left, Right, Up, Down
 };
-
-//enum MonsterDirection																	// направление движения монстра
-//{
-//	LeftUp, RightUp, LeftDown, RightDown
-//};
 
 enum CellType																			// содержимое ячейки
 {
@@ -57,7 +54,6 @@ template<typename T> using Vector = std::vector<T>;
 template<typename T> using List = std::list<T>;
 template<typename T> using Matrix = boost::numeric::ublas::matrix<T>;
 template<typename T> using Shared = std::shared_ptr<T>;
-//template<typename T, typename U> using Unmap = std::unordered_map<T, U>;
 
 using VectorInt = Vector<int>;
 using MatrixCells = Matrix<CellType>;
