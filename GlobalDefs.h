@@ -17,25 +17,26 @@
 // Константы
 //////////////////////////////////////////////////////////////////////////
 
-constexpr auto LevelWidth = 40;												// ширина уровня в тайлах
-constexpr auto LevelHeigth = 40;											// высота уровня в тайлах
-constexpr auto TileSize = 8;												// размер тайла
-constexpr auto BorderSize = 4;												// размер начального бордюра
+constexpr auto LevelWidth = 40;															// ширина уровня в тайлах
+constexpr auto LevelHeigth = 40;														// высота уровня в тайлах
+constexpr auto TileSize = 8;															// размер тайла
+constexpr auto BorderSize = 4;															// размер начального бордюра
+constexpr auto AinmationFps = 60;														// кадров в секунду
 
 //////////////////////////////////////////////////////////////////////////
 // Общие енумы
 //////////////////////////////////////////////////////////////////////////
 
-enum Direction																// направление движения
+enum Direction																			// направление движения
 {
 	Left, Right, Up, Down
 };
 
-enum CellType																// содержимое ячейки
+enum CellType																			// содержимое ячейки
 {
-	Empty,																	// пустая
-	Full,																	// откушенная
-	Temp																	// занятая, но не откушенная
+	Empty,																				// пустая
+	Full,																				// откушенная
+	Temp																				// занятая, но не откушенная
 };
 
 template<typename T> using Vector = std::vector<T>;
