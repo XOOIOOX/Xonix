@@ -24,4 +24,5 @@ private:
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
+	void clearScene();											// очистка сцены
 };

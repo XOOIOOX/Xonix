@@ -10,7 +10,6 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 
 	fillLevelWithBorder();
 
-
 	animationTimer = new QTimer(this);
 	animationTimer->start(1000 / AinmationFps);
 }
@@ -30,6 +29,15 @@ void Xonix::fillLevelWithBorder()
 			centralData.matrixCells(b, y) = Full;
 			centralData.matrixCells(LevelWidth - b - 1, y) = Full;
 		}
+	}
+}
+
+void Xonix::clearScene()
+{
+	auto items = centralData.scene->items();
+	for (auto it : items)
+	{
+		centralData.scene->removeItem(it);
 	}
 }
 
