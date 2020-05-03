@@ -15,8 +15,6 @@ class Xonix : public QMainWindow
 public:
 	Xonix(QWidget* parent = Q_NULLPTR);
 
-
-
 private:
 	Ui::Xonix ui;
 	Viewport* view;
@@ -26,4 +24,5 @@ private:
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
+	void fillScene();
 };

@@ -6,7 +6,6 @@
 class Wall : public QGraphicsRectItem, QObject
 {
 public:
-
 	Wall();
 	virtual ~Wall();
 

@@ -12,6 +12,8 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 
 	animationTimer = new QTimer(this);
 	animationTimer->start(1000 / AinmationFps);
+	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
+	fillScene();
 }
 
 void Xonix::fillLevelWithBorder()
@@ -36,6 +38,23 @@ void Xonix::clearScene()
 {
 	auto items = centralData.scene->items();
 	for (auto it : items) { centralData.scene->removeItem(it); }
+}
+
+void Xonix::fillScene()
+{
+	for (int x = 0; x < LevelWidth; x++)
+	{
+		for (int y = 0; y < LevelWidth; y++)
+		{
+			if (centralData.matrixCells(x, y) == Full)
+			{
+				auto item = new Wall;
+				item->setCellType(Full);
+				item->setPosition({ x, y });
+				centralData.scene->addItem(item);
+			}
+		}
+	}
 }
 
 void Xonix::setSceneRect()

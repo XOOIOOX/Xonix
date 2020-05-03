@@ -48,3 +48,7 @@ template<typename T> using Shared = std::shared_ptr<T>;
 
 using VectorInt = Vector<double>;
 using MatrixCells = Matrix<CellType>;
+
+template<typename T, typename U> auto makeItem(U& data) { return std::make_shared<T>(data); }	// сокращенный make_shared (с параметрами конструтора)
+template<typename T> auto makeItem() { return std::make_shared<T>(); }							// сокращенный make_shared (без параметров конструтора)
+

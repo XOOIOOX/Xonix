@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall()
+Wall::Wall(): QGraphicsRectItem(nullptr)
 {
 	setRect(0, 0, TileSize, TileSize);
 }
@@ -26,7 +26,7 @@ void Wall::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWid
 {
 	if (type == Full)
 	{
-		painter->setBrush({ QColor{ Qt::red }, Qt::SolidPattern });
+		painter->setBrush({ QColor{ Qt::green }, Qt::SolidPattern });
 	}
 	else
 	{
