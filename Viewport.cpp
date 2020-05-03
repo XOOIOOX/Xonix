@@ -28,6 +28,4 @@ void Viewport::keyReleaseEvent(QKeyEvent* event)
 }
 
 void Viewport::dumpCoords()
-{
-	//emit deltaChangedXySignal(delta.x(), delta.y());
-}
+{}

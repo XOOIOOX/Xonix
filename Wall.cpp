@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall(): QGraphicsRectItem(nullptr)
+Wall::Wall() : QGraphicsRectItem(nullptr)
 {
 	setRect(0, 0, TileSize, TileSize);
 }
@@ -19,9 +19,7 @@ void Wall::setPosition(QPoint pos)
 }
 
 void Wall::advance(int phase)
-{
-	//if (phase) {  }
-}
+{}
 
 void Wall::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
