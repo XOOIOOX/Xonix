@@ -6,24 +6,21 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	view = ui.view;
 	centralData.scene = new QGraphicsScene(view->rect(), this);
 	setSceneRect();
+	auto viewRect = centralData.scene->sceneRect().toRect();
+	viewRect.moveCenter(rect().center());
+	view->setGeometry(viewRect);
 	view->setScene(centralData.scene);
 
 	fillLevelWithBorder();
 
 	animationTimer = new QTimer(this);
+	animationTimer->setTimerType(Qt::PreciseTimer);
 	animationTimer->start(1000 / AinmationFps);
 	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
 
 	//////////////////////////////////////////////////////////////////////////
 	// ТЕСТ
 	//////////////////////////////////////////////////////////////////////////
-	centralData.monsterList.push_back(makeItem<Monster>(centralData));
-	centralData.monsterList.push_back(makeItem<Monster>(centralData));
-	centralData.monsterList.push_back(makeItem<Monster>(centralData));
-	centralData.monsterList.push_back(makeItem<Monster>(centralData));
-	centralData.monsterList.push_back(makeItem<Monster>(centralData));
-	centralData.monsterList.push_back(makeItem<Monster>(centralData));
-	centralData.monsterList.push_back(makeItem<Monster>(centralData));
 	centralData.monsterList.push_back(makeItem<Monster>(centralData));
 
 	centralData.matrixCells(20, 20) = Full;
@@ -86,7 +83,7 @@ void Xonix::fillSceneInitial()
 
 void Xonix::setSceneRect()
 {
-	auto rect = view->rect();
+	QRect rect;
 	rect.setWidth(LevelWidth * TileSize);
 	rect.setHeight(LevelHeigth * TileSize);
 	centralData.scene->setSceneRect(rect);

@@ -10,7 +10,9 @@ Monster::Monster(CentralDataStruct& data) : QGraphicsEllipseItem(nullptr), centr
 	centralData.scene->addItem(this);
 	positionTimer = new QTimer(this);
 	positionPortionTimer = new QTimer(this);
-	positionTimer->start(MonsterTimer);
+	positionTimer->setTimerType(Qt::PreciseTimer);
+	positionPortionTimer->setTimerType(Qt::PreciseTimer);
+	positionTimer->start(1000 / MonsterSpeed);
 	connect(positionTimer, SIGNAL(timeout()), this, SLOT(positionChangeSlot()));
 	connect(positionPortionTimer, SIGNAL(timeout()), this, SLOT(positionRealChangeSlot()));
 }
@@ -46,12 +48,12 @@ void Monster::positionChangeSlot()
 	}
 
 	positionNew = positionOld + direction;
-	positionPortionTimer->start(MonsterTimer / MonsterAnimationStep);
+	positionPortionTimer->start((1000 / MonsterSpeed) / MonsterAnimationSteps);
 }
 
 void Monster::positionRealChangeSlot()
 {
-	positionPortion += (static_cast<QPointF>(direction * TileSize)) / static_cast<double>(MonsterAnimationStep);
+	positionPortion += (static_cast<QPointF>(direction * TileSize)) / static_cast<double>(MonsterAnimationSteps);
 	setPos(static_cast<QPointF>(positionOld * TileSize) + positionPortion);
 }
 

@@ -6,14 +6,12 @@ Viewport::Viewport(QWidget* parent) : QGraphicsView(parent)
 {
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	setRenderHints(QPainter::LosslessImageRendering);
-	setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+	setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+	setRenderHints(QPainter::Antialiasing);
 }
 
 Viewport::~Viewport()
 {}
-
-
 
 void Viewport::keyPressEvent(QKeyEvent* event)
 {
