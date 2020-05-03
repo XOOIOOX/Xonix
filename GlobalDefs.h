@@ -51,6 +51,10 @@ enum CellType																			// содержимое ячейки
 	Temp																				// занятая, но не откушенная
 };
 
+//////////////////////////////////////////////////////////////////////////
+// Удобные юзинги
+//////////////////////////////////////////////////////////////////////////
+
 template<typename T> using Vector = std::vector<T>;
 template<typename T> using List = std::list<T>;
 template<typename T> using Matrix = boost::numeric::ublas::matrix<T>;
@@ -59,6 +63,10 @@ template<typename T> using Shared = std::shared_ptr<T>;
 using VectorInt = Vector<int>;
 using MatrixCells = Matrix<CellType>;
 using MonsterList = List<Shared<Monster>>;
+
+//////////////////////////////////////////////////////////////////////////
+// Общие шаблоны
+//////////////////////////////////////////////////////////////////////////
 
 template<typename T, typename U> auto makeItem(U& data) { return std::make_shared<T>(data); }	// сокращенный make_shared (с параметрами конструтора)
 template<typename T> auto makeItem() { return std::make_shared<T>(); }							// сокращенный make_shared (без параметров конструтора)
