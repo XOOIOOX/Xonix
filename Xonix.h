@@ -6,6 +6,7 @@
 #include "Viewport.h"
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
+#include "Wall.h"
 
 class Xonix : public QMainWindow
 {

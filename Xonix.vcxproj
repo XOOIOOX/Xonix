@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Viewport.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Xonix.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +102,7 @@
   <ItemGroup>
     <ClInclude Include="CentralDataStruct.h" />
     <ClInclude Include="GlobalDefs.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

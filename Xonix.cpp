@@ -35,10 +35,7 @@ void Xonix::fillLevelWithBorder()
 void Xonix::clearScene()
 {
 	auto items = centralData.scene->items();
-	for (auto it : items)
-	{
-		centralData.scene->removeItem(it);
-	}
+	for (auto it : items) { centralData.scene->removeItem(it); }
 }
 
 void Xonix::setSceneRect()

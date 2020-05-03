@@ -22,6 +22,8 @@ constexpr auto LevelHeigth = 40;														// высота уровня в т
 constexpr auto TileSize = 8;															// размер тайла
 constexpr auto BorderSize = 4;															// размер начального бордюра
 constexpr auto AinmationFps = 60;														// кадров в секунду
+constexpr auto BadPos = -1;																// неверная позиция итема
+constexpr QPoint BadItemPos = QPoint{ BadPos, BadPos };
 
 //////////////////////////////////////////////////////////////////////////
 // Общие енумы
