@@ -14,7 +14,7 @@
    <string>Xonix</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="Viewport" name="view">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -33,6 +33,13 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Viewport</class>
+   <extends>QGraphicsView</extends>
+   <header>viewport.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="Xonix.qrc"/>
  </resources>

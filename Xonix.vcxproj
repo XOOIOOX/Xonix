@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="Xonix.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Xonix.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Viewport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GlobalDefs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
