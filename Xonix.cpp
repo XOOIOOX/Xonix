@@ -13,7 +13,21 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	animationTimer = new QTimer(this);
 	animationTimer->start(1000 / AinmationFps);
 	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
-	fillScene();
+
+	//////////////////////////////////////////////////////////////////////////
+	// ТЕСТ
+	//////////////////////////////////////////////////////////////////////////
+	centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	centralData.monsterList.push_back(makeItem<Monster>(centralData));
+
+	centralData.matrixCells(20, 10) = Full;
+	centralData.matrixCells(20, 11) = Full;
+	centralData.matrixCells(20, 12) = Full;
+	centralData.matrixCells(20, 13) = Full;
+	//////////////////////////////////////////////////////////////////////////
+
+	fillSceneInitial();
 }
 
 void Xonix::fillLevelWithBorder()
@@ -40,7 +54,7 @@ void Xonix::clearScene()
 	for (auto it : items) { centralData.scene->removeItem(it); }
 }
 
-void Xonix::fillScene()
+void Xonix::fillSceneInitial()
 {
 	for (int x = 0; x < LevelWidth; x++)
 	{

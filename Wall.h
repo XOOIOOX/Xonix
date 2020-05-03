@@ -14,8 +14,8 @@ public:
 
 	void setCellType(CellType celltype);
 	void setPosition(QPoint pos);
-	virtual void advance(int phase);									// слот апдейта со сцены
-	virtual void paint(QPainter* painter,
+	void advance(int phase);									// слот апдейта со сцены
+	void paint(QPainter* painter,
 					   const QStyleOptionGraphicsItem* option,
 					   QWidget* widget = nullptr);						// рисовалка итема на сцене
 };

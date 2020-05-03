@@ -7,6 +7,7 @@
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
 #include "Wall.h"
+#include "Monster.h"
 
 class Xonix : public QMainWindow
 {
@@ -24,5 +25,5 @@ private:
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
-	void fillScene();
+	void fillSceneInitial();
 };
