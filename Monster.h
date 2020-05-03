@@ -14,10 +14,8 @@ public:
 	Monster(Monster&& monster) = default;
 	virtual ~Monster();
 
-	void advance(int phase);											// слот апдейта со сцены
-	void paint(QPainter* painter,
-					   const QStyleOptionGraphicsItem* option,
-					   QWidget* widget = nullptr);						// рисовалка итема на сцене
+	void advance(int phase);																								// слот апдейта со сцены
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);						// рисовалка итема на сцене
 
 private:
 	CentralDataStruct& centralData;

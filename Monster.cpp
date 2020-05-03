@@ -29,17 +29,18 @@ void Monster::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, Q
 	painter->drawEllipse(rect());
 }
 
-int Monster::randomSign() { return rand() % 2 ? 1 : -1; }
-
 void Monster::positionChangeSlot()
 {
 	positionOld = positionNew;
 	positionPortion = { 0.0, 0.0 };
-	if ((centralData.matrixCells(positionOld.x() + direction.x(), positionOld.y()) || (centralData.matrixCells(positionOld.x() - direction.x(), positionOld.y()))) == Full)
+
+	if ((centralData.matrixCells(positionOld.x() + direction.x(), positionOld.y()) ||
+		 (centralData.matrixCells(positionOld.x() - direction.x(), positionOld.y()))) == Full)
 	{
 		direction.rx() = -direction.x();
 	}
-	if ((centralData.matrixCells(positionOld.x(), positionOld.y() + direction.y()) || (centralData.matrixCells(positionOld.x(), positionOld.y() - direction.y()))) == Full)
+	if ((centralData.matrixCells(positionOld.x(), positionOld.y() + direction.y()) ||
+		 (centralData.matrixCells(positionOld.x(), positionOld.y() - direction.y()))) == Full)
 	{
 		direction.ry() = -direction.y();
 	}
@@ -53,3 +54,5 @@ void Monster::positionRealChangeSlot()
 	positionPortion += (static_cast<QPointF>(direction * TileSize)) / static_cast<double>(MonsterAnimationStep);
 	setPos(static_cast<QPointF>(positionOld * TileSize) + positionPortion);
 }
+
+int Monster::randomSign() { return rand() % 2 ? 1 : -1; }
