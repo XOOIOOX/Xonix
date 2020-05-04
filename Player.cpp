@@ -11,12 +11,13 @@ void Player::advance(int phase)
 	if (!phase)
 	{
 		setPos(position * TileSize);
+		setZValue(10);
 	}
 }
 
 void Player::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
-	painter->setBrush({ QColor{ Qt::green }, Qt::SolidPattern });
+	painter->setBrush({ QColor{ Qt::red }, Qt::SolidPattern });
 	painter->setPen(Qt::NoPen);
 	painter->drawRect(rect());
 }

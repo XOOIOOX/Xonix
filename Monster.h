@@ -4,7 +4,7 @@
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
 
-class Monster : public QObject, QGraphicsEllipseItem
+class Monster : public QObject, public QGraphicsEllipseItem
 {
 	Q_OBJECT
 

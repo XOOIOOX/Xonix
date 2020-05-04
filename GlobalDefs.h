@@ -31,9 +31,8 @@ constexpr auto BorderSizeMonster = BorderSize + 1;										// размер на
 constexpr auto AinmationFps = 60;														// кадров в секунду
 constexpr auto MonsterSpeed = 12;														// скорость монстра
 constexpr auto MonsterAnimationSteps = 40;												// количество шагов промежуточной анимации монстра
-constexpr auto BadPos = -1;																// неверная позиция 
+constexpr auto BadPos = -1;																// неверная позиция
 constexpr QPoint BadItemPos = QPoint{ BadPos, BadPos };									// неверная позиция итема
-
 
 //////////////////////////////////////////////////////////////////////////
 // Общие енумы
@@ -70,3 +69,4 @@ using MonsterList = List<Shared<Monster>>;
 
 template<typename T, typename U> auto makeItem(U& data) { return std::make_shared<T>(data); }	// сокращенный make_shared (с параметрами конструтора)
 template<typename T> auto makeItem() { return std::make_shared<T>(); }							// сокращенный make_shared (без параметров конструтора)
+template<typename T, typename U> using Unmap = std::unordered_map<T, U>;

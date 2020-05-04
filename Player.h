@@ -2,7 +2,7 @@
 #include <qgraphicsitem.h>
 #include "GlobalDefs.h"
 
-class Player : public QObject, QGraphicsRectItem
+class Player : public QObject, public QGraphicsRectItem
 {
 	Q_OBJECT
 

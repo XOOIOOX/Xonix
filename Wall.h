@@ -3,7 +3,7 @@
 #include "GlobalDefs.h"
 #include <QPainter>
 
-class Wall : public QGraphicsRectItem, QObject
+class Wall : public QGraphicsRectItem, public QObject
 {
 public:
 	Wall();
