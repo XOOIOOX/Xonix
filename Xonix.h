@@ -8,6 +8,7 @@
 #include "CentralDataStruct.h"
 #include "Wall.h"
 #include "Monster.h"
+#include "Player.h"
 
 class Xonix : public QMainWindow
 {
@@ -21,9 +22,13 @@ private:
 	Viewport* view;
 	CentralDataStruct centralData;
 	QTimer* animationTimer;
+	Player player;
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
 	void fillSceneInitial();
+
+public slots:
+	void playerMoveSlot(PlayerDirection direction);
 };

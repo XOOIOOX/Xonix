@@ -14,8 +14,6 @@ public:
 	void keyPressEvent(QKeyEvent* event);
 	void keyReleaseEvent(QKeyEvent* event);
 
-private:
-	void dumpCoords();
-
 signals:
+	void playerMoveSignal(PlayerDirection direction);
 };

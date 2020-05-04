@@ -15,17 +15,36 @@ Viewport::~Viewport()
 
 void Viewport::keyPressEvent(QKeyEvent* event)
 {
-	if (static_cast<Qt::Key>(event->key()) == Qt::Key_Space)
+	switch (static_cast<Qt::Key>(event->key()))
 	{
+		case Qt::Key_Left:
+		{
+			emit playerMoveSignal(Left);
+			break;
+		}
+
+		case Qt::Key_Right:
+		{
+			emit playerMoveSignal(Right);
+			break;
+		}
+
+		case Qt::Key_Up:
+		{
+			emit playerMoveSignal(Up);
+			break;
+		}
+
+		case Qt::Key_Down:
+		{
+			emit playerMoveSignal(Down);
+			break;
+		}
+
+		default:
+		{ break; }
 	}
 }
 
 void Viewport::keyReleaseEvent(QKeyEvent* event)
-{
-	if (static_cast<Qt::Key>(event->key()) == Qt::Key_Space)
-	{
-	}
-}
-
-void Viewport::dumpCoords()
 {}

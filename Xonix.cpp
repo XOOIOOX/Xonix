@@ -17,6 +17,8 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	animationTimer->setTimerType(Qt::PreciseTimer);
 	animationTimer->start(1000 / AinmationFps);
 	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
+	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), this, SLOT(playerMoveSlot(PlayerDirection)));
+
 
 	//////////////////////////////////////////////////////////////////////////
 	// ТЕСТ
@@ -38,6 +40,8 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	//////////////////////////////////////////////////////////////////////////
 
 	fillSceneInitial();
+
+	player.position = { LevelWidth / 2, 0 };
 }
 
 void Xonix::fillLevelWithBorder()
@@ -79,6 +83,11 @@ void Xonix::fillSceneInitial()
 			}
 		}
 	}
+}
+
+void Xonix::playerMoveSlot(PlayerDirection direction)
+{
+
 }
 
 void Xonix::setSceneRect()
