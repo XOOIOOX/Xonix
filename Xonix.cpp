@@ -17,30 +17,18 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	animationTimer->setTimerType(Qt::PreciseTimer);
 	animationTimer->start(1000 / AinmationFps);
 	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
-	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), this, SLOT(playerMoveSlot(PlayerDirection)));
+	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)));
 
 	//////////////////////////////////////////////////////////////////////////
 	// ТЕСТ
 	//////////////////////////////////////////////////////////////////////////
 	centralData.monsterList.push_back(makeItem<Monster>(centralData));
 
-	centralData.matrixCells(20, 20) = Full;
-	centralData.matrixCells(20, 21) = Full;
-	centralData.matrixCells(20, 22) = Full;
-	centralData.matrixCells(20, 23) = Full;
-	centralData.matrixCells(21, 20) = Full;
-	centralData.matrixCells(21, 21) = Full;
-	centralData.matrixCells(21, 22) = Full;
-	centralData.matrixCells(21, 23) = Full;
-	centralData.matrixCells(22, 20) = Full;
-	centralData.matrixCells(22, 21) = Full;
-	centralData.matrixCells(22, 22) = Full;
-	centralData.matrixCells(22, 23) = Full;
 	//////////////////////////////////////////////////////////////////////////
 
 	fillSceneInitial();
 
-	player.position = { LevelWidth / 2, 0 };
+	player.setPosition({ LevelWidth / 2, 0 });
 	centralData.scene->addItem(&player);
 }
 
@@ -84,53 +72,6 @@ void Xonix::fillSceneInitial()
 		}
 	}
 }
-
-void Xonix::playerMoveSlot(PlayerDirection direction)
-{
-	auto newPosition = player.position + directionMap[direction];
-
-	if ((newPosition.x() < LevelWidth) &&
-		(newPosition.y() < LevelHeigth) &&
-		(newPosition.x() >= 0) &&
-		(newPosition.y() >= 0))
-	{
-		switch (cellAccess(newPosition))
-		{
-			case Empty:
-			{
-				auto item = new Wall;
-				item->setCellType(Temp);
-				item->setPosition(newPosition);
-				centralData.scene->addItem(item);
-				cellAccess(newPosition) = Full;
-
-				break;
-			}
-			case Full:
-			{
-				break;
-			}
-			case Temp:
-			{
-				break;
-			}
-
-			default:
-			{ break; }
-		}
-
-		player.position = newPosition;
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-	// ТЕСТ
-	//////////////////////////////////////////////////////////////////////////
-	ui.playerPosLabel->setText("Player x: " + QString::number(player.position.x()) + "\n" +
-						   "Player y: " + QString::number(player.position.y()) + "\n");
-	//////////////////////////////////////////////////////////////////////////
-}
-
-CellType& Xonix::cellAccess(const QPoint& point) { return centralData.matrixCells(point.x(), point.y()); }
 
 void Xonix::setSceneRect()
 {
