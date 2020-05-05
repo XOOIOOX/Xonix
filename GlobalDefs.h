@@ -31,6 +31,8 @@ constexpr auto BorderSizeMonster = BorderSize + 1;										// размер на
 constexpr auto AinmationFps = 60;														// кадров в секунду
 constexpr auto MonsterSpeed = 12;														// скорость монстра
 constexpr auto MonsterAnimationSteps = 40;												// количество шагов промежуточной анимации монстра
+constexpr auto PlayerSpeed = 10;														// скорость игрока
+constexpr auto PlayerAnimationSteps = 30;												// количество шагов промежуточной анимации игрока
 constexpr auto BadPos = -1;																// неверная позиция
 constexpr QPoint BadItemPos = QPoint{ BadPos, BadPos };									// неверная позиция итема
 
@@ -40,7 +42,7 @@ constexpr QPoint BadItemPos = QPoint{ BadPos, BadPos };									// неверн�
 
 enum PlayerDirection																	// направление движения игрока
 {
-	Left, Right, Up, Down
+	Stop,Left, Right, Up, Down
 };
 
 enum CellType																			// содержимое ячейки
