@@ -26,6 +26,7 @@ void Player::advance(int phase)
 	if (!phase)
 	{
 		//setPos(positionNew * TileSize);
+		setPos((static_cast<QPointF>(positionOld) + positionAnimation) * static_cast<double>(TileSize));
 	}
 }
 
@@ -93,11 +94,17 @@ void Player::positionChangeSlot()
 
 void Player::positionAnimationSlot()
 {
-	positionAnimation += static_cast<QPointF>(directionMap[moveDirection]) / static_cast<double>(PlayerAnimationSteps);
-	setPos((static_cast<QPointF>(positionOld) + positionAnimation) * static_cast<double>(TileSize));
+	if (moveDirection != Stop)
+	{
+		positionAnimation += static_cast<QPointF>(directionMap[moveDirection]) / static_cast<double>(PlayerAnimationSteps);
+	}
+	else
+	{
+		moveAnimationTimer->stop();
+	}
+
 	if (abs(positionAnimation.x()) > 1.0 || abs(positionAnimation.y()) > 1.0)
 	{
 		positionAnimation = { 0.0, 0.0 };
-		//moveAnimationTimer->stop();
 	}
 }
