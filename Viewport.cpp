@@ -15,34 +15,37 @@ Viewport::~Viewport()
 
 void Viewport::keyPressEvent(QKeyEvent* event)
 {
-	switch (static_cast<Qt::Key>(event->key()))
+	if (!event->isAutoRepeat())
 	{
-		case Qt::Key_Left:
+		switch (static_cast<Qt::Key>(event->key()))
 		{
-			emit playerMoveSignal(Left);
-			break;
-		}
+			case Qt::Key_Left:
+			{
+				emit playerMoveSignal(Left);
+				break;
+			}
 
-		case Qt::Key_Right:
-		{
-			emit playerMoveSignal(Right);
-			break;
-		}
+			case Qt::Key_Right:
+			{
+				emit playerMoveSignal(Right);
+				break;
+			}
 
-		case Qt::Key_Up:
-		{
-			emit playerMoveSignal(Up);
-			break;
-		}
+			case Qt::Key_Up:
+			{
+				emit playerMoveSignal(Up);
+				break;
+			}
 
-		case Qt::Key_Down:
-		{
-			emit playerMoveSignal(Down);
-			break;
-		}
+			case Qt::Key_Down:
+			{
+				emit playerMoveSignal(Down);
+				break;
+			}
 
-		default:
-		{ break; }
+			default:
+			{ break; }
+		}
 	}
 }
 
