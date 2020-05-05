@@ -34,13 +34,10 @@ private:
 	PlayerDirection moveDirection{ Stop };
 	QTimer* moveTimer;
 	QTimer* moveAnimationTimer;
-	QTimer* fillCellWallTimer;
 	QPointF positionAnimation{ 0.0, 0.0 };
-	std::queue<QPoint> queue;
 
 public slots:
 	void playerMoveSlot(PlayerDirection direction);
 	void positionChangeSlot();
 	void positionAnimationSlot();
-	void fillWallSlot();
 };

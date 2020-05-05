@@ -9,12 +9,9 @@ Player::Player(CentralDataStruct& data) : centralData(data), QGraphicsRectItem(n
 	moveTimer->setTimerType(Qt::PreciseTimer);
 	moveAnimationTimer = new QTimer(this);
 	moveAnimationTimer->setTimerType(Qt::PreciseTimer);
-	fillCellWallTimer = new QTimer(this);
-	fillCellWallTimer->setTimerType(Qt::PreciseTimer);
 
 	connect(moveTimer, SIGNAL(timeout()), this, SLOT(positionChangeSlot()));
 	connect(moveAnimationTimer, SIGNAL(timeout()), this, SLOT(positionAnimationSlot()));
-	connect(fillCellWallTimer, SIGNAL(timeout()), this, SLOT(fillWallSlot()));
 
 	setZValue(10);
 }
@@ -30,8 +27,7 @@ void Player::advance(int phase)
 {
 	if (!phase)
 	{
-		//setPos(positionNew * TileSize);
-		setPos((static_cast<QPointF>(positionOld) + positionAnimation) * static_cast<double>(TileSize));
+		setPos((static_cast<QPointF>(positionNew) + positionAnimation) * static_cast<double>(TileSize));
 	}
 }
 
@@ -44,7 +40,7 @@ void Player::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
 
 void Player::playerMoveSlot(PlayerDirection direction)
 {
-	if (direction != Stop)
+	if (direction != Stop && direction != moveDirection)
 	{
 		moveDirection = direction;
 		moveTimer->start(1000 / PlayerSpeed);
@@ -67,13 +63,11 @@ void Player::positionChangeSlot()
 		{
 			case Empty:
 			{
-				queue.push(positionNew);
-				fillCellWallTimer->start(1000 / PlayerSpeed );
-				//auto item = new Wall;
-				//item->setCellType(Temp);
-				//item->setPosition(positionNew);
-				//centralData.scene->addItem(item);
-				//centralData.cellAccess(positionNew) = Full;
+				auto item = new Wall;
+				item->setCellType(Temp);
+				item->setPosition(positionNew);
+				centralData.scene->addItem(item);
+				centralData.cellAccess(positionNew) = Full;
 
 				break;
 			}
@@ -109,25 +103,4 @@ void Player::positionAnimationSlot()
 	{
 		moveAnimationTimer->stop();
 	}
-
-	if (abs(positionAnimation.x()) > 1.0 || abs(positionAnimation.y()) > 1.0)
-	{
-		positionAnimation = { 0.0, 0.0 };
-	}
-}
-
-void Player::fillWallSlot()
-{
-	while (!queue.empty())
-	{
-		auto point = queue.front();
-		auto item = new Wall;
-		item->setCellType(Temp);
-		item->setPosition(point);
-		centralData.scene->addItem(item);
-		centralData.cellAccess(point) = Full;
-		queue.pop();
-	}
-
-	//fillCellWallTimer->stop();
 }
