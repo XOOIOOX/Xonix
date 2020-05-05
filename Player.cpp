@@ -9,8 +9,13 @@ Player::Player(CentralDataStruct& data) : centralData(data), QGraphicsRectItem(n
 	moveTimer->setTimerType(Qt::PreciseTimer);
 	moveAnimationTimer = new QTimer(this);
 	moveAnimationTimer->setTimerType(Qt::PreciseTimer);
+	fillCellWallTimer = new QTimer(this);
+	fillCellWallTimer->setTimerType(Qt::PreciseTimer);
+
 	connect(moveTimer, SIGNAL(timeout()), this, SLOT(positionChangeSlot()));
 	connect(moveAnimationTimer, SIGNAL(timeout()), this, SLOT(positionAnimationSlot()));
+	connect(fillCellWallTimer, SIGNAL(timeout()), this, SLOT(fillWallSlot()));
+
 	setZValue(10);
 }
 
@@ -62,11 +67,13 @@ void Player::positionChangeSlot()
 		{
 			case Empty:
 			{
-				auto item = new Wall;
-				item->setCellType(Temp);
-				item->setPosition(positionNew);
-				centralData.scene->addItem(item);
-				centralData.cellAccess(positionNew) = Full;
+				queue.push(positionNew);
+				fillCellWallTimer->start(1000 / PlayerSpeed );
+				//auto item = new Wall;
+				//item->setCellType(Temp);
+				//item->setPosition(positionNew);
+				//centralData.scene->addItem(item);
+				//centralData.cellAccess(positionNew) = Full;
 
 				break;
 			}
@@ -107,4 +114,20 @@ void Player::positionAnimationSlot()
 	{
 		positionAnimation = { 0.0, 0.0 };
 	}
+}
+
+void Player::fillWallSlot()
+{
+	while (!queue.empty())
+	{
+		auto point = queue.front();
+		auto item = new Wall;
+		item->setCellType(Temp);
+		item->setPosition(point);
+		centralData.scene->addItem(item);
+		centralData.cellAccess(point) = Full;
+		queue.pop();
+	}
+
+	//fillCellWallTimer->stop();
 }
