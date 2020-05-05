@@ -2,20 +2,30 @@
 #include "QPainter"
 #include "Wall.h"
 
-Player::Player(CentralDataStruct& data) : centralData(data)
+Player::Player(CentralDataStruct& data) : centralData(data), QGraphicsRectItem(nullptr)
 {
 	setRect(0, 0, TileSize, TileSize);
 	moveTimer = new QTimer(this);
 	moveTimer->setTimerType(Qt::PreciseTimer);
-	moveTimer->start(1000/ PlayerSpeed);
+	moveAnimationTimer = new QTimer(this);
+	moveAnimationTimer->setTimerType(Qt::PreciseTimer);
+	connect(moveTimer, SIGNAL(timeout()), this, SLOT(positionChangeSlot()));
+	connect(moveAnimationTimer, SIGNAL(timeout()), this, SLOT(positionAnimationSlot()));
+	setZValue(10);
+}
+
+void Player::setPosition(QPoint point)
+{
+	positionOld = point;
+	positionNew = point;
+	setPos(point * TileSize);
 }
 
 void Player::advance(int phase)
 {
 	if (!phase)
 	{
-		setPos(position * TileSize);
-		setZValue(10);
+		//setPos(positionNew * TileSize);
 	}
 }
 
@@ -28,22 +38,34 @@ void Player::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
 
 void Player::playerMoveSlot(PlayerDirection direction)
 {
-	auto newPosition = position + directionMap[direction];
-
-	if ((newPosition.x() < LevelWidth) &&
-		(newPosition.y() < LevelHeigth) &&
-		(newPosition.x() >= 0) &&
-		(newPosition.y() >= 0))
+	if (direction != Stop)
 	{
-		switch (centralData.cellAccess(newPosition))
+		moveDirection = direction;
+		moveTimer->start(1000 / PlayerSpeed);
+	}
+}
+
+void Player::positionChangeSlot()
+{
+	positionOld = positionNew;
+	positionAnimation = { 0.0, 0.0 };
+
+	if (((positionOld + directionMap[moveDirection]).x() < LevelWidth) &&
+	((positionOld + directionMap[moveDirection]).y() < LevelHeigth) &&
+	((positionOld + directionMap[moveDirection]).x() >= 0) &&
+	((positionOld + directionMap[moveDirection]).y() >= 0))
+	{
+		positionNew = positionOld + directionMap[moveDirection];
+
+		switch (centralData.cellAccess(positionNew))
 		{
 			case Empty:
 			{
 				auto item = new Wall;
 				item->setCellType(Temp);
-				item->setPosition(newPosition);
+				item->setPosition(positionNew);
 				centralData.scene->addItem(item);
-				centralData.cellAccess(newPosition) = Full;
+				centralData.cellAccess(positionNew) = Full;
 
 				break;
 			}
@@ -60,6 +82,17 @@ void Player::playerMoveSlot(PlayerDirection direction)
 			{ break; }
 		}
 
-		position = newPosition;
+		moveAnimationTimer->start((1000 / PlayerSpeed) / PlayerAnimationSteps);
 	}
+	else
+	{
+		moveDirection = Stop;
+		moveTimer->stop();
+	}
+}
+
+void Player::positionAnimationSlot()
+{
+	positionAnimation += (static_cast<QPointF>(directionMap[moveDirection] * TileSize)) / static_cast<double>(PlayerAnimationSteps);
+	setPos(static_cast<QPointF>(positionNew * TileSize) + positionAnimation);
 }

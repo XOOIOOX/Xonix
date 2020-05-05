@@ -24,23 +24,11 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	//////////////////////////////////////////////////////////////////////////
 	centralData.monsterList.push_back(makeItem<Monster>(centralData));
 
-	centralData.matrixCells(20, 20) = Full;
-	centralData.matrixCells(20, 21) = Full;
-	centralData.matrixCells(20, 22) = Full;
-	centralData.matrixCells(20, 23) = Full;
-	centralData.matrixCells(21, 20) = Full;
-	centralData.matrixCells(21, 21) = Full;
-	centralData.matrixCells(21, 22) = Full;
-	centralData.matrixCells(21, 23) = Full;
-	centralData.matrixCells(22, 20) = Full;
-	centralData.matrixCells(22, 21) = Full;
-	centralData.matrixCells(22, 22) = Full;
-	centralData.matrixCells(22, 23) = Full;
 	//////////////////////////////////////////////////////////////////////////
 
 	fillSceneInitial();
 
-	player.position = { LevelWidth / 2, 0 };
+	player.setPosition({ LevelWidth / 2, 0 });
 	centralData.scene->addItem(&player);
 }
 

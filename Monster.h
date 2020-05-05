@@ -21,14 +21,14 @@ private:
 	CentralDataStruct& centralData;
 	QPoint positionNew{ BadItemPos };
 	QPoint positionOld = positionNew;
-	QPointF positionPortion{ 0.0, 0.0 };
+	QPointF positionAnimation{ 0.0, 0.0 };
 	QPoint direction{ 1, 1 };
 	QTimer* positionTimer;
-	QTimer* positionPortionTimer;
+	QTimer* positionAnimationTimer;
 
 	int randomSign();
 
 private slots:
 	void positionChangeSlot();
-	void positionRealChangeSlot();
+	void positionAnimationSlot();
 };
