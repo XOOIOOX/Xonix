@@ -5,7 +5,10 @@ Wall::Wall() : QGraphicsRectItem(nullptr)
 	setRect(0, 0, TileSize, TileSize);
 }
 
-Wall::~Wall() {}
+Wall::~Wall()
+{
+	std::cerr << "Wall dtor" << std::endl;
+}
 
 void Wall::setCellType(CellType cellType)
 {

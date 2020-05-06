@@ -8,5 +8,6 @@ struct CentralDataStruct
 	QGraphicsScene* scene;																// сцена для отрисовки
 	MonsterList monsterList;															// список мнстров
 
+
 	CellType& cellAccess(const QPoint& point);
 };

@@ -16,6 +16,11 @@ Player::Player(CentralDataStruct& data) : centralData(data), QGraphicsRectItem(n
 	setZValue(10);
 }
 
+Player::~Player()
+{
+	std::cerr << "Player dtor" << std::endl;
+}
+
 void Player::setPosition(QPoint point)
 {
 	positionOld = point;
@@ -70,6 +75,12 @@ void Player::positionChangeSlot()
 		if (centralData.cellAccess(positionNew) == Empty && centralData.cellAccess(positionOld) == Full)
 		{
 			positionBegin = positionOld;
+		}
+
+		if (centralData.cellAccess(positionNew) == Full && centralData.cellAccess(positionOld) == Temp)
+		{
+			positionBegin = positionNew;
+			emit contourCloseSignal();
 		}
 
 		switch (centralData.cellAccess(positionNew))

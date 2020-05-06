@@ -30,11 +30,12 @@ private:
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
-	void fillSceneInitial();
+	void fillSceneWithWalls();
 	void monsterGenerator();
 	void clearMonsterList();
 	void gameOver();
 
 public slots:
 	void collisionSlot();
+	void contourCloseSlot();
 };

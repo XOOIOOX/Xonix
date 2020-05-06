@@ -11,6 +11,7 @@ class Player : public QObject, public QGraphicsRectItem
 
 public:
 	Player(CentralDataStruct& data);
+	~Player();
 
 	QPoint positionOld{ BadPos, BadPos };
 	QPoint positionNew = positionOld;
@@ -42,4 +43,7 @@ public slots:
 	void playerMoveSlot(PlayerDirection direction);
 	void positionChangeSlot();
 	void positionAnimationSlot();
+
+signals:
+	void contourCloseSignal();
 };

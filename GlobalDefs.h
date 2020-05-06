@@ -18,18 +18,19 @@
 // Предварительные объявы
 //////////////////////////////////////////////////////////////////////////
 class Monster;
+class Wall;
 
 //////////////////////////////////////////////////////////////////////////
 // Константы
 //////////////////////////////////////////////////////////////////////////
 
 constexpr auto LevelWidth = 80;															// ширина уровня в тайлах
-constexpr auto LevelHeigth = 60;														// высота уровня в тайлах
+constexpr auto LevelHeigth = 40;														// высота уровня в тайлах
 constexpr auto TileSize = 10;															// размер тайла
 constexpr auto BorderSize = 2;															// размер начального бордюра
 constexpr auto BorderSizeMonster = BorderSize + 1;										// размер начального бордюра для монстров
 constexpr auto AinmationFps = 60;														// кадров в секунду
-constexpr auto MonsterSpeed = 10;														// скорость монстра
+constexpr auto MonsterSpeed = 14;														// скорость монстра
 constexpr auto PlayerSpeed = 16;														// скорость игрока
 constexpr auto PlayerAnimationSteps = 8;												// количество шагов промежуточной анимации игрока
 constexpr auto BadPos = -1;																// неверная позиция
@@ -63,6 +64,7 @@ template<typename T> using Shared = std::shared_ptr<T>;
 using VectorInt = Vector<int>;
 using MatrixCells = Matrix<CellType>;
 using MonsterList = List<Shared<Monster>>;
+using WallList = List<Shared<Wall>>;
 
 //////////////////////////////////////////////////////////////////////////
 // Общие шаблоны
