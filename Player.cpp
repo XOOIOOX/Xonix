@@ -49,8 +49,9 @@ void Player::playerMoveSlot(PlayerDirection direction)
 	{
 		moveDirection = Stop;
 		moveTimer->stop();
-		positionAnimation = { 0.0, 0.0 };
 		moveAnimationTimer->stop();
+		positionAnimation = { 0.0, 0.0 };
+		
 	}
 }
 

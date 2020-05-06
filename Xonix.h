@@ -17,6 +17,8 @@ class Xonix : public QMainWindow
 public:
 	Xonix(QWidget* parent = Q_NULLPTR);
 
+	void showPlayerLives();
+
 private:
 	Ui::Xonix ui;
 	Viewport* view;
@@ -31,6 +33,7 @@ private:
 	void fillSceneInitial();
 	void monsterGenerator();
 	void clearMonsterList();
+	void gameOver();
 
 public slots:
 	void collisionSlot();

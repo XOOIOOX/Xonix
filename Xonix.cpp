@@ -12,19 +12,24 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	view->setGeometry(viewRect);
 	view->setScene(centralData.scene);
 
-	fillLevelWithBorder();
-
 	animationTimer = new QTimer(this);
 	animationTimer->setTimerType(Qt::PreciseTimer);
 	animationTimer->start(1000 / AinmationFps);
 	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
 	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)));
 
+	fillLevelWithBorder();
 	fillSceneInitial();
 	monsterGenerator();
 
 	player.setPosition({ LevelWidth / 2, 0 });
 	centralData.scene->addItem(&player);
+	showPlayerLives();
+}
+
+void Xonix::showPlayerLives()
+{
+	ui.livesLabel->setText("Lives: " + QString::number(player.lives));
 }
 
 void Xonix::monsterGenerator()
@@ -39,6 +44,19 @@ void Xonix::monsterGenerator()
 void Xonix::clearMonsterList()
 {
 	if (!centralData.monsterList.empty()) { centralData.monsterList.clear(); }
+}
+
+void Xonix::gameOver()
+{
+	currentLevel = 1;
+	clearScene();
+	fillLevelWithBorder();
+	fillSceneInitial();
+	clearMonsterList();
+	monsterGenerator();
+	centralData.scene->addItem(&player);
+	player.lives = 3;
+	showPlayerLives();
 }
 
 void Xonix::collisionSlot()
@@ -61,6 +79,13 @@ void Xonix::collisionSlot()
 
 	player.setPosition(player.positionBegin);
 	player.playerMoveSlot(Stop);
+	player.lives--;
+	ui.livesLabel->setText(QString::number(player.lives));
+
+	if (!player.lives)
+	{
+		gameOver();
+	}
 }
 
 void Xonix::fillLevelWithBorder()
