@@ -7,14 +7,16 @@ Monster::Monster(CentralDataStruct& data) : QGraphicsEllipseItem(nullptr), centr
 	setRect(0, 0, TileSize, TileSize);
 	direction = { randomSign(), randomSign() };
 	positionNew = { (rand() % (LevelWidth - BorderSizeMonster * 2) + BorderSizeMonster), (rand() % (LevelHeigth - BorderSizeMonster * 2) + BorderSizeMonster) };
-	centralData.scene->addItem(this);
+	positionOld = positionNew;
 	moveCounter = round(animationSteps);
+	centralData.scene->addItem(this);
 }
 
 Monster::~Monster()
 {
 	disconnect(this, nullptr, nullptr, nullptr);
 	centralData.scene->removeItem(this);
+	std::cerr << "Monster dtor" << std::endl;
 }
 
 void Monster::advance(int phase)

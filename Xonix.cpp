@@ -37,7 +37,7 @@ void Xonix::monsterGenerator()
 {
 	for (int i = 0; i < currentLevel; i++)
 	{
-		centralData.monsterList.push_back(makeItem<Monster>(centralData));
+		centralData.monsterList.push_back(std::move(makeItem<Monster>(centralData)));
 		connect(centralData.monsterList.back().get(), SIGNAL(collisionSignal()), this, SLOT(collisionSlot()));
 	}
 }
@@ -47,11 +47,20 @@ void Xonix::clearMonsterList()
 	if (!centralData.monsterList.empty()) { centralData.monsterList.clear(); }
 }
 
+void Xonix::clearWallsList()
+{
+	if (!centralData.wallsList.empty()) { centralData.wallsList.clear(); }
+}
+
 void Xonix::gameOver()
 {
 	currentLevel = 1;
 	clearMonsterList();
+	clearWallsList();
 	clearScene();
+
+	auto items = centralData.scene->items();
+
 	fillLevelWithBorder();
 	fillSceneWithWalls();
 	monsterGenerator();
@@ -59,25 +68,30 @@ void Xonix::gameOver()
 	player.setPosition({ LevelWidth / 2, 0 });
 	player.lives = 3;
 	showPlayerLives();
+
+	
+
 }
 
 void Xonix::collisionSlot()
 {
-	auto items = centralData.scene->items();
+	//auto items = centralData.scene->items();
 
-	for (auto it : items)
-	{
-		if (typeid(*it) == typeid(Wall))
-		{
-			auto item = static_cast<Wall*>(it);
+	//for (auto it : items)
+	//{
+	//	if (typeid(*it) == typeid(Wall))
+	//	{
+	//		auto item = static_cast<Wall*>(it);
 
-			if (item->type == Temp)
-			{
-				centralData.cellAccess(item->position) = Empty;
-				centralData.scene->removeItem(item);
-			}
-		}
-	}
+	//		if (item->type == Temp)
+	//		{
+	//			centralData.cellAccess(item->position) = Empty;
+	//			centralData.scene->removeItem(item);
+	//		}
+	//	}
+	//}
+
+	centralData.wallsList.remove_if([](auto& wall) { return wall->type == Temp; });
 
 	player.setPosition(player.positionBegin);
 	player.playerMoveSlot(Stop);
@@ -91,9 +105,7 @@ void Xonix::collisionSlot()
 }
 
 void Xonix::contourCloseSlot()
-{
-
-}
+{}
 
 void Xonix::fillLevelWithBorder()
 {
@@ -127,10 +139,10 @@ void Xonix::fillSceneWithWalls()
 		{
 			if (centralData.level(x, y) == Full)
 			{
-				auto item = new Wall;
-				item->setCellType(Full);
-				item->setPosition({ x, y });
-				centralData.scene->addItem(item);
+				auto wall = makeItem<Wall>(centralData);
+				wall->setCellType(Full);
+				wall->setPosition({ x, y });
+				centralData.wallsList.push_back(std::move(wall));
 			}
 		}
 	}

@@ -56,7 +56,6 @@ void Player::playerMoveSlot(PlayerDirection direction)
 		moveTimer->stop();
 		moveAnimationTimer->stop();
 		positionAnimation = { 0.0, 0.0 };
-		
 	}
 }
 
@@ -87,12 +86,11 @@ void Player::positionChangeSlot()
 		{
 			case Empty:
 			{
-				auto item = new Wall;
-				item->setCellType(Temp);
-				item->setPosition(positionNew);
-				centralData.scene->addItem(item);
-				centralData.cellAccess(positionNew) = Temp;
-
+				auto wall = makeItem<Wall>(centralData);
+				wall->setCellType(Temp);
+				wall->setPosition(positionNew);
+				centralData.wallsList.push_back(std::move(wall));
+				//centralData.cellAccess(positionNew) = Temp;
 				break;
 			}
 			case Full:

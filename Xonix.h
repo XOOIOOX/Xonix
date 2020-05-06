@@ -33,6 +33,7 @@ private:
 	void fillSceneWithWalls();
 	void monsterGenerator();
 	void clearMonsterList();
+	void clearWallsList();
 	void gameOver();
 
 public slots:

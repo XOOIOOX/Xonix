@@ -1,13 +1,28 @@
 #include "Wall.h"
 
-Wall::Wall() : QGraphicsRectItem(nullptr)
+Wall::Wall(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(data)
 {
 	setRect(0, 0, TileSize, TileSize);
+	centralData.scene->addItem(this);
 }
 
 Wall::~Wall()
 {
-	std::cerr << "Wall dtor" << std::endl;
+	centralData.scene->removeItem(this);
+	centralData.cellAccess(position) = Empty;
+
+	if (type == Temp)
+	{
+		std::cerr << "Wall TEMP dtor" << std::endl;
+	}
+	else if (type == Full)
+	{
+		std::cerr << "Wall FULL dtor" << std::endl;
+	}
+	else
+	{
+		std::cerr << "Wall STRANGE dtor" << std::endl;
+	}
 }
 
 void Wall::setCellType(CellType cellType)
@@ -19,6 +34,7 @@ void Wall::setPosition(QPoint pos)
 {
 	position = pos;
 	setPos(position * TileSize);
+	centralData.cellAccess(position) = type;
 }
 
 void Wall::advance(int phase)
