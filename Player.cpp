@@ -45,6 +45,13 @@ void Player::playerMoveSlot(PlayerDirection direction)
 		moveDirection = direction;
 		moveTimer->start(1000 / PlayerSpeed);
 	}
+	else
+	{
+		moveDirection = Stop;
+		moveTimer->stop();
+		positionAnimation = { 0.0, 0.0 };
+		moveAnimationTimer->stop();
+	}
 }
 
 void Player::positionChangeSlot()
@@ -58,6 +65,11 @@ void Player::positionChangeSlot()
 	((positionOld + directionMap[moveDirection]).y() >= 0))
 	{
 		positionNew = positionOld + directionMap[moveDirection];
+
+		if (centralData.cellAccess(positionNew) == Empty && centralData.cellAccess(positionOld) == Full)
+		{
+			positionBegin = positionOld;
+		}
 
 		switch (centralData.cellAccess(positionNew))
 		{

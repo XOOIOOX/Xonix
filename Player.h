@@ -14,6 +14,7 @@ public:
 
 	QPoint positionOld{ BadPos, BadPos };
 	QPoint positionNew = positionOld;
+	QPoint positionBegin = positionOld;
 	int lives{ 3 };
 
 	void setPosition(QPoint point);
@@ -35,6 +36,7 @@ private:
 	QTimer* moveTimer;
 	QTimer* moveAnimationTimer;
 	QPointF positionAnimation{ 0.0, 0.0 };
+
 
 public slots:
 	void playerMoveSlot(PlayerDirection direction);

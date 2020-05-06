@@ -23,7 +23,7 @@ private:
 	CentralDataStruct centralData;
 	QTimer* animationTimer;
 	Player player{ centralData };
-	int currentLevel{ 5 };
+	int currentLevel{ 10 };
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
@@ -31,6 +31,7 @@ private:
 	void fillSceneInitial();
 	void monsterGenerator();
 	void clearMonsterList();
+
 public slots:
 	void collisionSlot();
 };

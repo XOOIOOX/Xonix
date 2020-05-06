@@ -43,20 +43,24 @@ void Xonix::clearMonsterList()
 
 void Xonix::collisionSlot()
 {
-	auto data = centralData.level.data();
-	std::for_each(std::begin(data), std::end(data), [](CellType& item) { if (item == Temp) { item = Empty; } });
-
 	auto items = centralData.scene->items();
+
 	for (auto it : items)
 	{
 		if (typeid(*it) == typeid(Wall))
 		{
-			if (static_cast<Wall*>(it)->type == Temp)
+			auto item = static_cast<Wall*>(it);
+
+			if (item->type == Temp)
 			{
-				centralData.scene->removeItem(it);
+				centralData.cellAccess(item->position) = Empty;
+				centralData.scene->removeItem(item);
 			}
 		}
 	}
+
+	player.setPosition(player.positionBegin);
+	player.playerMoveSlot(Stop);
 }
 
 void Xonix::fillLevelWithBorder()
