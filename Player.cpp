@@ -67,7 +67,7 @@ void Player::positionChangeSlot()
 				item->setCellType(Temp);
 				item->setPosition(positionNew);
 				centralData.scene->addItem(item);
-				centralData.cellAccess(positionNew) = Full;
+				centralData.cellAccess(positionNew) = Temp;
 
 				break;
 			}

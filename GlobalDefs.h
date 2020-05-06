@@ -24,14 +24,13 @@ class Monster;
 //////////////////////////////////////////////////////////////////////////
 
 constexpr auto LevelWidth = 80;															// ширина уровня в тайлах
-constexpr auto LevelHeigth = 40;														// высота уровня в тайлах
+constexpr auto LevelHeigth = 60;														// высота уровня в тайлах
 constexpr auto TileSize = 10;															// размер тайла
 constexpr auto BorderSize = 2;															// размер начального бордюра
 constexpr auto BorderSizeMonster = BorderSize + 1;										// размер начального бордюра для монстров
 constexpr auto AinmationFps = 60;														// кадров в секунду
-constexpr auto MonsterSpeed = 12;														// скорость монстра
-constexpr auto MonsterAnimationSteps = 16;												// количество шагов промежуточной анимации монстра
-constexpr auto PlayerSpeed = 12;														// скорость игрока
+constexpr auto MonsterSpeed = 18;														// скорость монстра
+constexpr auto PlayerSpeed = 16;														// скорость игрока
 constexpr auto PlayerAnimationSteps = 8;												// количество шагов промежуточной анимации игрока
 constexpr auto BadPos = -1;																// неверная позиция
 constexpr QPoint BadItemPos = QPoint{ BadPos, BadPos };									// неверная позиция итема

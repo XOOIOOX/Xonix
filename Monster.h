@@ -21,14 +21,10 @@ private:
 	CentralDataStruct& centralData;
 	QPoint positionNew{ BadItemPos };
 	QPoint positionOld = positionNew;
-	QPointF positionAnimation{ 0.0, 0.0 };
+	QPointF positionCorrection{ 0.0, 0.0 };
 	QPoint direction{ 1, 1 };
-	QTimer* moveTimer;
-	QTimer* moveAnimationTimer;
+	int moveCounter;
+	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(MonsterSpeed);
 
 	int randomSign();
-
-private slots:
-	void positionChangeSlot();
-	void positionAnimationSlot();
 };
