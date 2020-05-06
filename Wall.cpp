@@ -8,21 +8,8 @@ Wall::Wall(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(da
 
 Wall::~Wall()
 {
-	centralData.scene->removeItem(this);
+	if (scene()) { scene()->removeItem(this); }
 	centralData.cellAccess(position) = Empty;
-
-	//if (type == Temp)
-	//{
-	//	std::cerr << "Wall TEMP dtor" << std::endl;
-	//}
-	//else if (type == Full)
-	//{
-	//	std::cerr << "Wall FULL dtor" << std::endl;
-	//}
-	//else
-	//{
-	//	std::cerr << "Wall STRANGE dtor" << std::endl;
-	//}
 }
 
 void Wall::setCellType(CellType cellType)

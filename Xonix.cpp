@@ -1,11 +1,8 @@
 #include "Xonix.h"
 #include <algorithm>
 
-int Monster::monsterCount = 0;
-
 Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 {
-	
 	ui.setupUi(this);
 	view = ui.view;
 	centralData.scene = new QGraphicsScene(view->rect(), this);
@@ -24,6 +21,9 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 
 	fillLevelWithBorder();
 	fillSceneWithWalls();
+
+	monsterGenerator();
+	clearMonsterList();
 	monsterGenerator();
 
 	player.setPosition({ LevelWidth / 2, 0 });
@@ -57,40 +57,25 @@ void Xonix::clearWallsList()
 
 void Xonix::gameOver()
 {
+	animationTimer->stop();
 	currentLevel = 1;
+
+	clearScene();
 	clearMonsterList();
 	clearWallsList();
-	clearScene();
-
-	auto items = centralData.scene->items();
 
 	fillLevelWithBorder();
 	fillSceneWithWalls();
-	monsterGenerator();
 	centralData.scene->addItem(&player);
 	player.setPosition({ LevelWidth / 2, 0 });
 	player.lives = 3;
 	showPlayerLives();
+	animationTimer->start(1000 / AinmationFps);
+	monsterGenerator();
 }
 
 void Xonix::collisionSlot()
 {
-	//auto items = centralData.scene->items();
-
-	//for (auto it : items)
-	//{
-	//	if (typeid(*it) == typeid(Wall))
-	//	{
-	//		auto item = static_cast<Wall*>(it);
-
-	//		if (item->type == Temp)
-	//		{
-	//			centralData.cellAccess(item->position) = Empty;
-	//			centralData.scene->removeItem(item);
-	//		}
-	//	}
-	//}
-
 	centralData.wallsList.remove_if([](auto& wall) { return wall->type == Temp; });
 
 	player.setPosition(player.positionBegin);

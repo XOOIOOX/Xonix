@@ -11,13 +11,12 @@ class Monster : public QObject, public QGraphicsEllipseItem
 
 public:
 	Monster(CentralDataStruct& data);
-	Monster(const Monster& monster) = default;
+	Monster(const Monster& monster);
 	Monster(Monster&& monster) = default;
 	~Monster();
 
 	void advance(int phase);
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
-	static int monsterCount;
 
 private:
 	CentralDataStruct& centralData;

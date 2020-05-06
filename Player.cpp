@@ -17,9 +17,7 @@ Player::Player(CentralDataStruct& data) : centralData(data), QGraphicsRectItem(n
 }
 
 Player::~Player()
-{
-	std::cerr << "Player dtor" << std::endl;
-}
+{}
 
 void Player::setPosition(QPoint point)
 {
@@ -90,7 +88,6 @@ void Player::positionChangeSlot()
 				wall->setCellType(Temp);
 				wall->setPosition(positionNew);
 				centralData.wallsList.push_back(std::move(wall));
-				//centralData.cellAccess(positionNew) = Temp;
 				break;
 			}
 			case Full:

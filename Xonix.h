@@ -25,7 +25,7 @@ private:
 	CentralDataStruct centralData;
 	QTimer* animationTimer;
 	Player player{ centralData };
-	int currentLevel{ 10 };
+	int currentLevel{ 2 };
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
