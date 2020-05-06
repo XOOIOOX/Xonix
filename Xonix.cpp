@@ -19,17 +19,19 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
 	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)));
 
-	//////////////////////////////////////////////////////////////////////////
-	// ТЕСТ
-	//////////////////////////////////////////////////////////////////////////
-	centralData.monsterList.push_back(makeItem<Monster>(centralData));
-
-	//////////////////////////////////////////////////////////////////////////
-
 	fillSceneInitial();
+	monsterGenerator();
 
 	player.setPosition({ LevelWidth / 2, 0 });
 	centralData.scene->addItem(&player);
+}
+
+void Xonix::monsterGenerator()
+{
+	for (int i = 0; i < currentLevel; i++)
+	{
+		centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	}
 }
 
 void Xonix::fillLevelWithBorder()

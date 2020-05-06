@@ -22,12 +22,12 @@ private:
 	Viewport* view;
 	CentralDataStruct centralData;
 	QTimer* animationTimer;
-	Player player{centralData};
+	Player player{ centralData };
+	int currentLevel{ 10 };
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
 	void fillSceneInitial();
-
-	//public slots:
+	void monsterGenerator();
 };

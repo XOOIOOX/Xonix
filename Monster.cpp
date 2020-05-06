@@ -8,13 +8,13 @@ Monster::Monster(CentralDataStruct& data) : QGraphicsEllipseItem(nullptr), centr
 	direction = { randomSign(), randomSign() };
 	positionNew = { (rand() % (LevelWidth - BorderSizeMonster * 2) + BorderSizeMonster), (rand() % (LevelHeigth - BorderSizeMonster * 2) + BorderSizeMonster) };
 	centralData.scene->addItem(this);
-	positionTimer = new QTimer(this);
-	positionAnimationTimer = new QTimer(this);
-	positionTimer->setTimerType(Qt::PreciseTimer);
-	positionAnimationTimer->setTimerType(Qt::PreciseTimer);
-	positionTimer->start(1000 / MonsterSpeed);
-	connect(positionTimer, SIGNAL(timeout()), this, SLOT(positionChangeSlot()));
-	connect(positionAnimationTimer, SIGNAL(timeout()), this, SLOT(positionAnimationSlot()));
+	moveTimer = new QTimer(this);
+	moveAnimationTimer = new QTimer(this);
+	moveTimer->setTimerType(Qt::PreciseTimer);
+	moveAnimationTimer->setTimerType(Qt::PreciseTimer);
+	moveTimer->start(1000 / MonsterSpeed);
+	connect(moveTimer, SIGNAL(timeout()), this, SLOT(positionChangeSlot()));
+	connect(moveAnimationTimer, SIGNAL(timeout()), this, SLOT(positionAnimationSlot()));
 }
 
 Monster::~Monster()
@@ -23,7 +23,12 @@ Monster::~Monster()
 }
 
 void Monster::advance(int phase)
-{}
+{
+	if (!phase)
+	{
+		setPos(static_cast<QPointF>(positionOld * TileSize) + positionAnimation);
+	}
+}
 
 void Monster::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
@@ -48,13 +53,12 @@ void Monster::positionChangeSlot()
 	}
 
 	positionNew = positionOld + direction;
-	positionAnimationTimer->start((1000 / MonsterSpeed) / MonsterAnimationSteps);
+	moveAnimationTimer->start((1000 / MonsterSpeed) / MonsterAnimationSteps);
 }
 
 void Monster::positionAnimationSlot()
 {
 	positionAnimation += (static_cast<QPointF>(direction * TileSize)) / static_cast<double>(MonsterAnimationSteps);
-	setPos(static_cast<QPointF>(positionOld * TileSize) + positionAnimation);
 }
 
 int Monster::randomSign() { return rand() % 2 ? 1 : -1; }

@@ -23,8 +23,8 @@ private:
 	QPoint positionOld = positionNew;
 	QPointF positionAnimation{ 0.0, 0.0 };
 	QPoint direction{ 1, 1 };
-	QTimer* positionTimer;
-	QTimer* positionAnimationTimer;
+	QTimer* moveTimer;
+	QTimer* moveAnimationTimer;
 
 	int randomSign();
 
