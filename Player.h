@@ -17,8 +17,8 @@ public:
 	int lives{ 3 };
 
 	void setPosition(QPoint point);
-	void advance(int phase);																								// слот апдейта со сцены
-	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);						// рисовалка итема на сцене
+	void advance(int phase);
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 
 private:
 	Unmap<PlayerDirection, QPoint> directionMap

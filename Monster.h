@@ -14,8 +14,8 @@ public:
 	Monster(Monster&& monster) = default;
 	virtual ~Monster();
 
-	void advance(int phase);																								// слот апдейта со сцены
-	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);						// рисовалка итема на сцене
+	void advance(int phase);
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 
 private:
 	CentralDataStruct& centralData;
@@ -27,4 +27,6 @@ private:
 	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(MonsterSpeed);
 
 	int randomSign();
+signals:
+	void collisionSignal();
 };

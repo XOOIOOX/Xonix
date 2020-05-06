@@ -30,4 +30,7 @@ private:
 	void clearScene();											// очистка сцены
 	void fillSceneInitial();
 	void monsterGenerator();
+	void clearMonsterList();
+public slots:
+	void collisionSlot();
 };

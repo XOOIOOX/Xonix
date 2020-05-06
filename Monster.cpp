@@ -13,6 +13,7 @@ Monster::Monster(CentralDataStruct& data) : QGraphicsEllipseItem(nullptr), centr
 
 Monster::~Monster()
 {
+	disconnect(this, nullptr, nullptr, nullptr);
 	centralData.scene->removeItem(this);
 }
 
@@ -24,13 +25,13 @@ void Monster::advance(int phase)
 		{
 			positionOld = positionNew;
 
-			if ((centralData.matrixCells(positionOld.x() + direction.x(), positionOld.y()) == Full) ||
-				 (centralData.matrixCells(positionOld.x() - direction.x(), positionOld.y()) == Full))
+			if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == Full) ||
+				 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == Full))
 			{
 				direction.rx() = -direction.x();
 			}
-			if ((centralData.matrixCells(positionOld.x(), positionOld.y() + direction.y()) == Full )||
-				 (centralData.matrixCells(positionOld.x(), positionOld.y() - direction.y()) == Full))
+			if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == Full) ||
+				 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == Full))
 			{
 				direction.ry() = -direction.y();
 			}
@@ -38,6 +39,11 @@ void Monster::advance(int phase)
 			positionNew = positionOld + direction;
 			moveCounter = round(animationSteps);
 			positionCorrection = { 0.0, 0.0 };
+
+			if (centralData.cellAccess(positionNew) == Temp)
+			{
+				emit collisionSignal();
+			}
 		}
 
 		moveCounter--;

@@ -1,4 +1,5 @@
 #include "Xonix.h"
+#include <algorithm>
 
 Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 {
@@ -31,6 +32,30 @@ void Xonix::monsterGenerator()
 	for (int i = 0; i < currentLevel; i++)
 	{
 		centralData.monsterList.push_back(makeItem<Monster>(centralData));
+		connect(centralData.monsterList.back().get(), SIGNAL(collisionSignal()), this, SLOT(collisionSlot()));
+	}
+}
+
+void Xonix::clearMonsterList()
+{
+	if (!centralData.monsterList.empty()) { centralData.monsterList.clear(); }
+}
+
+void Xonix::collisionSlot()
+{
+	auto data = centralData.level.data();
+	std::for_each(std::begin(data), std::end(data), [](CellType& item) { if (item == Temp) { item = Empty; } });
+
+	auto items = centralData.scene->items();
+	for (auto it : items)
+	{
+		if (typeid(*it) == typeid(Wall))
+		{
+			if (static_cast<Wall*>(it)->type == Temp)
+			{
+				centralData.scene->removeItem(it);
+			}
+		}
 	}
 }
 
@@ -40,14 +65,14 @@ void Xonix::fillLevelWithBorder()
 	{
 		for (int x = 0; x < LevelWidth; x++)
 		{
-			centralData.matrixCells(x, b) = Full;
-			centralData.matrixCells(x, LevelHeigth - b - 1) = Full;
+			centralData.level(x, b) = Full;
+			centralData.level(x, LevelHeigth - b - 1) = Full;
 		}
 
 		for (int y = 0; y < LevelHeigth; y++)
 		{
-			centralData.matrixCells(b, y) = Full;
-			centralData.matrixCells(LevelWidth - b - 1, y) = Full;
+			centralData.level(b, y) = Full;
+			centralData.level(LevelWidth - b - 1, y) = Full;
 		}
 	}
 }
@@ -60,11 +85,11 @@ void Xonix::clearScene()
 
 void Xonix::fillSceneInitial()
 {
-	for (int x = 0; x < LevelWidth; x++)
+	for (int y = 0; y < LevelHeigth; y++)
 	{
-		for (int y = 0; y < LevelHeigth; y++)
+		for (int x = 0; x < LevelWidth; x++)
 		{
-			if (centralData.matrixCells(x, y) == Full)
+			if (centralData.level(x, y) == Full)
 			{
 				auto item = new Wall;
 				item->setCellType(Full);
