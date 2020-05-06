@@ -1,8 +1,11 @@
 #include "Xonix.h"
 #include <algorithm>
 
+int Monster::monsterCount = 0;
+
 Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 {
+	
 	ui.setupUi(this);
 	view = ui.view;
 	centralData.scene = new QGraphicsScene(view->rect(), this);
@@ -37,7 +40,7 @@ void Xonix::monsterGenerator()
 {
 	for (int i = 0; i < currentLevel; i++)
 	{
-		centralData.monsterList.push_back(std::move(makeItem<Monster>(centralData)));
+		centralData.monsterList.push_back(makeItem<Monster>(centralData));
 		connect(centralData.monsterList.back().get(), SIGNAL(collisionSignal()), this, SLOT(collisionSlot()));
 	}
 }
@@ -68,9 +71,6 @@ void Xonix::gameOver()
 	player.setPosition({ LevelWidth / 2, 0 });
 	player.lives = 3;
 	showPlayerLives();
-
-	
-
 }
 
 void Xonix::collisionSlot()

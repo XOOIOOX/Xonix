@@ -10,6 +10,9 @@ Monster::Monster(CentralDataStruct& data) : QGraphicsEllipseItem(nullptr), centr
 	positionOld = positionNew;
 	moveCounter = round(animationSteps);
 	centralData.scene->addItem(this);
+	monsterCount++;
+
+	std::cerr << "Monster ctor" << std::endl;
 }
 
 Monster::~Monster()
@@ -17,6 +20,7 @@ Monster::~Monster()
 	disconnect(this, nullptr, nullptr, nullptr);
 	centralData.scene->removeItem(this);
 	std::cerr << "Monster dtor" << std::endl;
+	monsterCount--;
 }
 
 void Monster::advance(int phase)

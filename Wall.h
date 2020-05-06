@@ -10,7 +10,7 @@ public:
 	Wall(CentralDataStruct& data);
 	Wall(const Wall& wall) : Wall(wall.centralData) {};
 	Wall(Wall&& wall) = default;
-	virtual ~Wall();
+	~Wall();
 
 	CellType type{ Full };
 	QPoint position{ BadItemPos };

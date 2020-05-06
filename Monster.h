@@ -3,6 +3,7 @@
 #include <QTimer>
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
+#include <utility>
 
 class Monster : public QObject, public QGraphicsEllipseItem
 {
@@ -10,12 +11,13 @@ class Monster : public QObject, public QGraphicsEllipseItem
 
 public:
 	Monster(CentralDataStruct& data);
-	Monster(const Monster& monster) : Monster(monster.centralData) {};
+	Monster(const Monster& monster) = default;
 	Monster(Monster&& monster) = default;
-	virtual ~Monster();
+	~Monster();
 
 	void advance(int phase);
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
+	static int monsterCount;
 
 private:
 	CentralDataStruct& centralData;
