@@ -8,7 +8,7 @@ class Wall : public QGraphicsRectItem, public QObject
 {
 public:
 	Wall(CentralDataStruct& data);
-	Wall(const Wall& wall) : Wall(wall.centralData) {};
+	Wall(const Wall& wall) = default;
 	Wall(Wall&& wall) = default;
 	~Wall();
 
