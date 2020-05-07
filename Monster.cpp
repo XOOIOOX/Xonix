@@ -2,7 +2,7 @@
 #include "QPainter"
 #include "QColor"
 
-Monster::Monster(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(data)
+Monster::Monster(CentralDataStruct& data) : QObject(nullptr), QGraphicsRectItem(nullptr), centralData(data)
 {
 	setRect(0, 0, TileSize, TileSize);
 	direction = { randomSign(), randomSign() };
@@ -12,12 +12,11 @@ Monster::Monster(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralD
 	centralData.scene->addItem(this);
 }
 
-Monster::Monster(const Monster& monster) : Monster(monster.centralData) {}
-
 Monster::~Monster()
 {
-	disconnect(this, nullptr, nullptr, nullptr);
-	if (scene()) { scene()->removeItem(this); }
+	//disconnect(this, nullptr, nullptr, nullptr);
+	scene()->removeItem(this);
+	deleteLater();
 }
 
 void Monster::advance(int phase)
@@ -28,16 +27,26 @@ void Monster::advance(int phase)
 		{
 			positionOld = positionNew;
 
-			if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == Full) ||
-				 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == Full))
+			if (positionOld.x() + direction.x() < 1 || positionOld.x() + direction.x() > LevelWidth - 1)
 			{
 				direction.rx() = -direction.x();
 			}
-			if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == Full) ||
-				 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == Full))
+
+			if (positionOld.y() + direction.y() < 1 || positionOld.y() + direction.y() > LevelHeigth - 1)
 			{
 				direction.ry() = -direction.y();
 			}
+
+			//if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == Full) ||
+			//	 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == Full))
+			//{
+			//	direction.rx() = -direction.x();
+			//}
+			//if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == Full) ||
+			//	 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == Full))
+			//{
+			//	direction.ry() = -direction.y();
+			//}
 
 			positionNew = positionOld + direction;
 			moveCounter = round(animationSteps);

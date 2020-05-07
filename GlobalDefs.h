@@ -24,7 +24,7 @@ class Wall;
 // Константы
 //////////////////////////////////////////////////////////////////////////
 
-constexpr auto LevelWidth = 60;															// ширина уровня в тайлах
+constexpr auto LevelWidth = 30;															// ширина уровня в тайлах
 constexpr auto LevelHeigth = 30;														// высота уровня в тайлах
 constexpr auto TileSize = 10;															// размер тайла
 constexpr auto BorderSize = 2;															// размер начального бордюра

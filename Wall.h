@@ -4,8 +4,10 @@
 #include <QPainter>
 #include "CentralDataStruct.h"
 
-class Wall : public QGraphicsRectItem
+class Wall : public QObject, public QGraphicsRectItem
 {
+	Q_OBJECT
+
 public:
 	Wall(CentralDataStruct& data);
 	//Wall(const Wall& wall) : Wall(wall.centralData) {};

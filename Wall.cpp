@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(data)
+Wall::Wall(CentralDataStruct& data) :QObject(nullptr), QGraphicsRectItem(nullptr), centralData(data)
 {
 	setRect(0, 0, TileSize, TileSize);
 	centralData.scene->addItem(this);
@@ -8,8 +8,8 @@ Wall::Wall(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(da
 
 Wall::~Wall()
 {
-	if (scene()) { scene()->removeItem(this); }
 	centralData.cellAccess(position) = Empty;
+	scene()->removeItem(this);
 }
 
 void Wall::setCellType(CellType cellType)

@@ -19,9 +19,13 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)));
 	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()));
 
-	fillLevelWithBorder();
-	fillSceneWithWalls();
+	gameOverTimer = new QTimer(this);
+	gameOverTimer->start(2000);
+	//connect(gameOverTimer, SIGNAL(timeout()), this, SLOT(gameOver()));
+	//fillLevelWithBorder();
+	//fillSceneWithWalls();
 	monsterGenerator();
+
 	player.setPosition({ LevelWidth / 2, 0 });
 	centralData.scene->addItem(&player);
 	showPlayerLives();
@@ -37,7 +41,7 @@ void Xonix::monsterGenerator()
 	for (int i = 0; i < currentLevel; i++)
 	{
 		centralData.monsterList.push_back(makeItem<Monster>(centralData));
-		connect(centralData.monsterList.back().get(), SIGNAL(collisionSignal()), this, SLOT(collisionSlot()));
+		connect(&*centralData.monsterList.back(), SIGNAL(collisionSignal()), this, SLOT(collisionSlot()));
 	}
 }
 
@@ -53,35 +57,42 @@ void Xonix::clearWallsList()
 
 void Xonix::gameOver()
 {
-	currentLevel = 5;
+	//clearWallsList();
+	//clearScene();
+	//fillLevelWithBorder();
+	//fillSceneWithWalls();
+
 	clearMonsterList();
-	clearWallsList();
-	clearScene();
-	fillLevelWithBorder();
-	fillSceneWithWalls();
-	centralData.scene->addItem(&player);
+	monsterGenerator();
+
+	//centralData.monsterList.push_back(makeItem<Monster>(centralData));
+	//connect(centralData.monsterList.back().get(), SIGNAL(collisionSignal()), this, SLOT(collisionSlot()));
+	//centralData.scene->addItem(&player);
 	player.setPosition({ LevelWidth / 2, 0 });
 	player.lives = 1;
 	showPlayerLives();
-
-	auto items = centralData.scene->items();
-	monsterGenerator();
-	items = centralData.scene->items();
 }
 
 void Xonix::collisionSlot()
 {
-	centralData.wallsList.remove_if([](auto& wall) { return wall->type == Temp; });
+	//centralData.wallsList.remove_if([](auto& wall) { return wall->type == Temp; });
 
-	player.setPosition(player.positionBegin);
-	player.playerMoveSlot(Stop);
-	player.lives--;
-	ui.livesLabel->setText(QString::number(player.lives));
+	//player.setPosition(player.positionBegin);
+	//player.playerMoveSlot(Stop);
+	//player.lives--;
+	//ui.livesLabel->setText(QString::number(player.lives));
+	//gameOver();
+	//if (!player.lives)
+	//{
+	//	gameOver();
+	//}
 
-	if (!player.lives)
-	{
-		gameOver();
-	}
+	if (!centralData.monsterList.empty()) { centralData.monsterList.erase(std::prev(centralData.monsterList.end(), 1)); }
+
+	//clearMonsterList();
+	//monsterGenerator();
+
+	std::cout << "Beep\nBeeep\nBeeeep" << std::endl;
 }
 
 void Xonix::contourCloseSlot()
@@ -93,14 +104,19 @@ void Xonix::fillLevelWithBorder()
 	{
 		for (int x = 0; x < LevelWidth; x++)
 		{
-			centralData.level(x, b) = Full;
-			centralData.level(x, LevelHeigth - b - 1) = Full;
+			makeWallFull(x, b);
+			makeWallFull(x, LevelHeigth - b - 1);
+			//centralData.level(x, b) = Full;
+			//centralData.level(x, LevelHeigth - b - 1) = Full;
 		}
 
 		for (int y = 0; y < LevelHeigth; y++)
 		{
-			centralData.level(b, y) = Full;
-			centralData.level(LevelWidth - b - 1, y) = Full;
+			makeWallFull(b, y);
+			makeWallFull(LevelWidth - b - 1, y);
+
+			//centralData.level(b, y) = Full;
+			//centralData.level(LevelWidth - b - 1, y) = Full;
 		}
 	}
 }
@@ -119,13 +135,18 @@ void Xonix::fillSceneWithWalls()
 		{
 			if (centralData.level(x, y) == Full)
 			{
-				auto wall = makeItem<Wall>(centralData);
-				wall->setCellType(Full);
-				wall->setPosition({ x, y });
-				centralData.wallsList.push_back(wall);
+				makeWallFull(x, y);
 			}
 		}
 	}
+}
+
+void Xonix::makeWallFull(int x, int y)
+{
+	auto wall = makeItem<Wall>(centralData);
+	wall->setCellType(Full);
+	wall->setPosition({ x, y });
+	centralData.wallsList.push_back(wall);
 }
 
 void Xonix::setSceneRect()
