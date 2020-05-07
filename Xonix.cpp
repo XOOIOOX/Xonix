@@ -21,11 +21,7 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 
 	fillLevelWithBorder();
 	fillSceneWithWalls();
-
 	monsterGenerator();
-	clearMonsterList();
-	monsterGenerator();
-
 	player.setPosition({ LevelWidth / 2, 0 });
 	centralData.scene->addItem(&player);
 	showPlayerLives();
@@ -57,21 +53,20 @@ void Xonix::clearWallsList()
 
 void Xonix::gameOver()
 {
-	animationTimer->stop();
-	currentLevel = 1;
-
-	clearScene();
+	currentLevel = 5;
 	clearMonsterList();
 	clearWallsList();
-
+	clearScene();
 	fillLevelWithBorder();
 	fillSceneWithWalls();
 	centralData.scene->addItem(&player);
 	player.setPosition({ LevelWidth / 2, 0 });
-	player.lives = 3;
+	player.lives = 1;
 	showPlayerLives();
-	animationTimer->start(1000 / AinmationFps);
+
+	auto items = centralData.scene->items();
 	monsterGenerator();
+	items = centralData.scene->items();
 }
 
 void Xonix::collisionSlot()
@@ -127,7 +122,7 @@ void Xonix::fillSceneWithWalls()
 				auto wall = makeItem<Wall>(centralData);
 				wall->setCellType(Full);
 				wall->setPosition({ x, y });
-				centralData.wallsList.push_back(std::move(wall));
+				centralData.wallsList.push_back(wall);
 			}
 		}
 	}

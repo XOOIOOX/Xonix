@@ -54,10 +54,10 @@
     <QtMoc Include="Viewport.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Monster.h">
+    <QtMoc Include="Player.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Player.h">
+    <QtMoc Include="Monster.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -75,10 +75,10 @@
     <ClInclude Include="GlobalDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CentralDataStruct.h">
+    <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Wall.h">
+    <ClInclude Include="CentralDataStruct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,7 @@
 #include "QPainter"
 #include "QColor"
 
-Monster::Monster(CentralDataStruct& data) : QGraphicsEllipseItem(nullptr), centralData(data)
+Monster::Monster(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(data)
 {
 	setRect(0, 0, TileSize, TileSize);
 	direction = { randomSign(), randomSign() };
@@ -22,7 +22,7 @@ Monster::~Monster()
 
 void Monster::advance(int phase)
 {
-	if (phase)
+	if (!phase)
 	{
 		if (!moveCounter)
 		{

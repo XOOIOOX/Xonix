@@ -87,7 +87,7 @@ void Player::positionChangeSlot()
 				auto wall = makeItem<Wall>(centralData);
 				wall->setCellType(Temp);
 				wall->setPosition(positionNew);
-				centralData.wallsList.push_back(std::move(wall));
+				centralData.wallsList.push_back(wall);
 				break;
 			}
 			case Full:

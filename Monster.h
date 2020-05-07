@@ -5,7 +5,7 @@
 #include "CentralDataStruct.h"
 #include <utility>
 
-class Monster : public QObject, public QGraphicsEllipseItem
+class Monster : public QObject, public QGraphicsRectItem
 {
 	Q_OBJECT
 
@@ -19,13 +19,14 @@ public:
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 
 private:
-	CentralDataStruct& centralData;
+	
 	QPoint positionNew{ BadItemPos };
 	QPoint positionOld = positionNew;
 	QPointF positionCorrection{ 0.0, 0.0 };
 	QPoint direction{ 1, 1 };
 	int moveCounter;
 	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(MonsterSpeed);
+	CentralDataStruct& centralData;
 
 	int randomSign();
 signals:

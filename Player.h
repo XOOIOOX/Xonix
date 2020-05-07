@@ -16,7 +16,7 @@ public:
 	QPoint positionOld{ BadPos, BadPos };
 	QPoint positionNew = positionOld;
 	QPoint positionBegin = positionOld;
-	int lives{ 3 };
+	int lives{ 1 };
 
 	void setPosition(QPoint point);
 	void advance(int phase);

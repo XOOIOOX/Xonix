@@ -4,12 +4,12 @@
 #include <QPainter>
 #include "CentralDataStruct.h"
 
-class Wall : public QGraphicsRectItem, public QObject
+class Wall : public QGraphicsRectItem
 {
 public:
 	Wall(CentralDataStruct& data);
-	Wall(const Wall& wall) : Wall(wall.centralData) {};
-	Wall(Wall&& wall) = default;
+	//Wall(const Wall& wall) : Wall(wall.centralData) {};
+	//Wall(Wall&& wall) = default;
 	~Wall();
 
 	CellType type{ Full };
