@@ -65,6 +65,7 @@ using VectorInt = Vector<int>;
 using MatrixCells = Matrix<CellType>;
 using MonsterList = List<Shared<Monster>>;
 using WallList = List<Shared<Wall>>;
+using MonsterVector = Vector<Shared<Monster>>;
 
 //////////////////////////////////////////////////////////////////////////
 // Общие шаблоны
