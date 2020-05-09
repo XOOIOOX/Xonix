@@ -27,20 +27,15 @@ private:
 	Player player{ centralData };
 	int currentLevel{ 1 };
 
-	QTimer* gameOverTimer;
-
-
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
-	void fillSceneWithWalls();
 
 	void makeWallFull(int x, int y);
 
 	void monsterGenerator();
 	void clearMonsterList();
 	void clearWallsList();
-
 
 public slots:
 	void collisionSlot();

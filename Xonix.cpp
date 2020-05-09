@@ -20,7 +20,6 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()));
 
 	fillLevelWithBorder();
-	//fillSceneWithWalls();
 	monsterGenerator();
 
 	player.setPosition({ LevelWidth / 2, 0 });
@@ -56,6 +55,7 @@ void Xonix::gameOver()
 {
 	clearWallsList();
 	//clearScene();
+	auto items = centralData.scene->items();
 	fillLevelWithBorder();
 
 	clearMonsterList();
@@ -103,20 +103,6 @@ void Xonix::clearScene()
 {
 	auto items = centralData.scene->items();
 	for (auto it : items) { centralData.scene->removeItem(it); }
-}
-
-void Xonix::fillSceneWithWalls()
-{
-	for (int y = 0; y < LevelHeigth; y++)
-	{
-		for (int x = 0; x < LevelWidth; x++)
-		{
-			if (centralData.level(x, y) == Full)
-			{
-				makeWallFull(x, y);
-			}
-		}
-	}
 }
 
 void Xonix::makeWallFull(int x, int y)
