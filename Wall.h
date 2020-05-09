@@ -10,8 +10,6 @@ class Wall : public QObject, public QGraphicsRectItem
 
 public:
 	Wall(CentralDataStruct& data);
-	//Wall(const Wall& wall) : Wall(wall.centralData) {};
-	//Wall(Wall&& wall) = default;
 	~Wall();
 
 	CellType type{ Full };

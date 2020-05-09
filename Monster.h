@@ -11,11 +11,7 @@ class Monster : public QObject, public QGraphicsRectItem
 
 public:
 	Monster(CentralDataStruct& data);
-	//Monster(const Monster& monster) : Monster(monster.centralData) {}
-	//Monster(Monster&& monster) = default;
 	~Monster();
-
-
 
 	void advance(int phase);
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
