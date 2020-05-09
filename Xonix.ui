@@ -30,7 +30,7 @@
      <number>0</number>
     </property>
    </widget>
-   <widget class="QLabel" name="playerPosLabel">
+   <widget class="QLabel" name="livesLabel">
     <property name="geometry">
      <rect>
       <x>1210</x>

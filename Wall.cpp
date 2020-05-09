@@ -1,11 +1,16 @@
 #include "Wall.h"
 
-Wall::Wall() : QGraphicsRectItem(nullptr)
+Wall::Wall(CentralDataStruct& data) :QObject(nullptr), QGraphicsRectItem(nullptr), centralData(data)
 {
 	setRect(0, 0, TileSize, TileSize);
+	centralData.scene->addItem(this);
 }
 
-Wall::~Wall() {}
+Wall::~Wall()
+{
+	centralData.cellAccess(position) = Empty;
+	scene()->removeItem(this);
+}
 
 void Wall::setCellType(CellType cellType)
 {
@@ -16,6 +21,7 @@ void Wall::setPosition(QPoint pos)
 {
 	position = pos;
 	setPos(position * TileSize);
+	centralData.cellAccess(position) = type;
 }
 
 void Wall::advance(int phase)

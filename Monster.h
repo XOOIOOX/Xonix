@@ -3,32 +3,34 @@
 #include <QTimer>
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
+#include <utility>
 
-class Monster : public QObject, public QGraphicsEllipseItem
+class Monster : public QObject, public QGraphicsRectItem
 {
 	Q_OBJECT
 
 public:
 	Monster(CentralDataStruct& data);
-	Monster(const Monster& monster) : Monster(monster.centralData) {};
-	Monster(Monster&& monster) = default;
-	virtual ~Monster();
+	//Monster(const Monster& monster) : Monster(monster.centralData) {}
+	//Monster(Monster&& monster) = default;
+	~Monster();
 
-	void advance(int phase);																								// слот апдейта со сцены
-	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);						// рисовалка итема на сцене
+
+
+	void advance(int phase);
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
+
+signals:
+	void collisionSignal();
 
 private:
 	CentralDataStruct& centralData;
 	QPoint positionNew{ BadItemPos };
 	QPoint positionOld = positionNew;
-	QPointF positionAnimation{ 0.0, 0.0 };
+	QPointF positionCorrection{ 0.0, 0.0 };
 	QPoint direction{ 1, 1 };
-	QTimer* positionTimer;
-	QTimer* positionAnimationTimer;
+	int moveCounter;
+	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(MonsterSpeed);
 
 	int randomSign();
-
-private slots:
-	void positionChangeSlot();
-	void positionAnimationSlot();
 };

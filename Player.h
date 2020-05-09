@@ -11,14 +11,16 @@ class Player : public QObject, public QGraphicsRectItem
 
 public:
 	Player(CentralDataStruct& data);
+	~Player();
 
 	QPoint positionOld{ BadPos, BadPos };
 	QPoint positionNew = positionOld;
+	QPoint positionBegin = positionOld;
 	int lives{ 3 };
 
 	void setPosition(QPoint point);
-	void advance(int phase);																								// слот апдейта со сцены
-	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);						// рисовалка итема на сцене
+	void advance(int phase);
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 
 private:
 	Unmap<PlayerDirection, QPoint> directionMap
@@ -36,8 +38,12 @@ private:
 	QTimer* moveAnimationTimer;
 	QPointF positionAnimation{ 0.0, 0.0 };
 
+
 public slots:
 	void playerMoveSlot(PlayerDirection direction);
 	void positionChangeSlot();
 	void positionAnimationSlot();
+
+signals:
+	void contourCloseSignal();
 };

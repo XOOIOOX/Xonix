@@ -4,9 +4,10 @@
 
 struct CentralDataStruct
 {
-	MatrixCells matrixCells{ LevelWidth, LevelHeigth, Empty };							// матрица уровня
-	QGraphicsScene* scene;																// сцена для отрисовки
-	MonsterList monsterList;															// список мнстров
+	MatrixCells level{ LevelWidth, LevelHeigth, Empty };							// матрица уровня
+	QGraphicsScene* scene;															// сцена для отрисовки
+	MonsterVector monsterList;														// список монстров
+	WallList wallsList;																// список стен
 
 	CellType& cellAccess(const QPoint& point);
 };

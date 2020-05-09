@@ -16,6 +16,9 @@ Player::Player(CentralDataStruct& data) : centralData(data), QGraphicsRectItem(n
 	setZValue(10);
 }
 
+Player::~Player()
+{}
+
 void Player::setPosition(QPoint point)
 {
 	positionOld = point;
@@ -45,6 +48,13 @@ void Player::playerMoveSlot(PlayerDirection direction)
 		moveDirection = direction;
 		moveTimer->start(1000 / PlayerSpeed);
 	}
+	else
+	{
+		moveDirection = Stop;
+		moveTimer->stop();
+		moveAnimationTimer->stop();
+		positionAnimation = { 0.0, 0.0 };
+	}
 }
 
 void Player::positionChangeSlot()
@@ -59,16 +69,25 @@ void Player::positionChangeSlot()
 	{
 		positionNew = positionOld + directionMap[moveDirection];
 
+		if (centralData.cellAccess(positionNew) == Empty && centralData.cellAccess(positionOld) == Full)
+		{
+			positionBegin = positionOld;
+		}
+
+		if (centralData.cellAccess(positionNew) == Full && centralData.cellAccess(positionOld) == Temp)
+		{
+			positionBegin = positionNew;
+			emit contourCloseSignal();
+		}
+
 		switch (centralData.cellAccess(positionNew))
 		{
 			case Empty:
 			{
-				auto item = new Wall;
-				item->setCellType(Temp);
-				item->setPosition(positionNew);
-				centralData.scene->addItem(item);
-				centralData.cellAccess(positionNew) = Full;
-
+				auto wall = makeItem<Wall>(centralData);
+				wall->setCellType(Temp);
+				wall->setPosition(positionNew);
+				centralData.wallsList.push_back(wall);
 				break;
 			}
 			case Full:

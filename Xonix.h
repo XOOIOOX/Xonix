@@ -17,17 +17,33 @@ class Xonix : public QMainWindow
 public:
 	Xonix(QWidget* parent = Q_NULLPTR);
 
+	void showPlayerLives();
+
 private:
 	Ui::Xonix ui;
 	Viewport* view;
 	CentralDataStruct centralData;
 	QTimer* animationTimer;
-	Player player{centralData};
+	Player player{ centralData };
+	int currentLevel{ 1 };
+
+	QTimer* gameOverTimer;
+
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
-	void fillSceneInitial();
+	void fillSceneWithWalls();
 
-	//public slots:
+	void makeWallFull(int x, int y);
+
+	void monsterGenerator();
+	void clearMonsterList();
+	void clearWallsList();
+
+
+public slots:
+	void collisionSlot();
+	void contourCloseSlot();
+	void gameOver();
 };

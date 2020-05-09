@@ -60,11 +60,12 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <AdditionalIncludeDirectories>$(BOOST_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -74,11 +75,12 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <AdditionalIncludeDirectories>$(BOOST_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -107,7 +109,7 @@
     <ClInclude Include="GlobalDefs.h" />
     <QtMoc Include="Monster.h" />
     <QtMoc Include="Player.h" />
-    <ClInclude Include="Wall.h" />
+    <QtMoc Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
