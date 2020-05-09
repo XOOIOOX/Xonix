@@ -14,9 +14,8 @@ Monster::Monster(CentralDataStruct& data) : QObject(nullptr), QGraphicsRectItem(
 
 Monster::~Monster()
 {
-	//disconnect(this, nullptr, nullptr, nullptr);
+	disconnect(this, nullptr, nullptr, nullptr);
 	scene()->removeItem(this);
-	deleteLater();
 }
 
 void Monster::advance(int phase)
@@ -27,26 +26,16 @@ void Monster::advance(int phase)
 		{
 			positionOld = positionNew;
 
-			if (positionOld.x() + direction.x() < 1 || positionOld.x() + direction.x() > LevelWidth - 1)
+			if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == Full) ||
+				 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == Full))
 			{
 				direction.rx() = -direction.x();
 			}
-
-			if (positionOld.y() + direction.y() < 1 || positionOld.y() + direction.y() > LevelHeigth - 1)
+			if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == Full) ||
+				 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == Full))
 			{
 				direction.ry() = -direction.y();
 			}
-
-			//if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == Full) ||
-			//	 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == Full))
-			//{
-			//	direction.rx() = -direction.x();
-			//}
-			//if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == Full) ||
-			//	 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == Full))
-			//{
-			//	direction.ry() = -direction.y();
-			//}
 
 			positionNew = positionOld + direction;
 			moveCounter = round(animationSteps);

@@ -25,7 +25,7 @@ private:
 	CentralDataStruct centralData;
 	QTimer* animationTimer;
 	Player player{ centralData };
-	int currentLevel{ 5 };
+	int currentLevel{ 1 };
 
 	QTimer* gameOverTimer;
 
