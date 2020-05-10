@@ -28,15 +28,10 @@ void Player::advance(int phase)
 			positionOld = positionNew;
 			moveCounter = round(animationSteps);
 			positionCorrection = { 0.0, 0.0 };
+			positionNew = positionOld + directionMap[moveDirection];
 
-			if (((positionOld + directionMap[moveDirection]).x() < LevelWidth) &&
-				((positionOld + directionMap[moveDirection]).y() < LevelHeigth) &&
-				((positionOld + directionMap[moveDirection]).x() >= 0) &&
-				((positionOld + directionMap[moveDirection]).y() >= 0))
+			if (positionNew.x() < LevelWidth && positionNew.y() < LevelHeigth && positionNew.x() >= 0 && positionNew.y() >= 0)
 			{
-				positionNew = positionOld + directionMap[moveDirection];
-
-
 				if (centralData.cellAccess(positionOld) == Full && centralData.cellAccess(positionNew) == Empty)
 				{
 					positionBegin = positionOld;
@@ -58,6 +53,7 @@ void Player::advance(int phase)
 			}
 			else
 			{
+				positionNew = positionOld;
 				moveDirection = Stop;
 			}
 		}
@@ -77,14 +73,13 @@ void Player::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
 
 void Player::playerMoveSlot(PlayerDirection direction)
 {
-	if (centralData.cellAccess(positionOld) != Temp || centralData.cellAccess(positionNew) != Temp)
-	{
-		moveDirection = direction;
-	}
-
+	//if (centralData.cellAccess(positionOld) != Temp || centralData.cellAccess(positionNew) != Temp)
+		//{
+		//	moveDirection = direction;
+		//}
+	moveDirection = direction;
 	std::cout << "old: " << positionOld.x() << " x " << positionOld.y() << " | new: " << positionNew.x() << " x " << positionNew.y() << std::endl;
 	std::cout << " item old: " << centralData.cellAccess(positionOld) << " item new: " << centralData.cellAccess(positionNew) << std::endl;
-
 
 	//positionCorrection = { 0.0, 0.0 };
 }
