@@ -34,15 +34,12 @@ private:
 
 	CentralDataStruct& centralData;
 	PlayerDirection moveDirection{ Stop };
-	QTimer* moveTimer;
-	QTimer* moveAnimationTimer;
-	QPointF positionAnimation{ 0.0, 0.0 };
-
+	QPointF positionCorrection{ 0.0, 0.0 };
+	int moveCounter;
+	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(PlayerSpeed);
 
 public slots:
 	void playerMoveSlot(PlayerDirection direction);
-	void positionChangeSlot();
-	void positionAnimationSlot();
 
 signals:
 	void contourCloseSignal();
