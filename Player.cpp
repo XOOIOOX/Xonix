@@ -49,6 +49,11 @@ void Player::advance(int phase)
 					wall->setCellType(Temp);
 					wall->setPosition(positionNew);
 					centralData.wallsList.push_back(wall);
+					directionBlocker = true;
+				}
+				else
+				{
+					directionBlocker = false;
 				}
 			}
 			else
@@ -77,7 +82,20 @@ void Player::playerMoveSlot(PlayerDirection direction)
 		//{
 		//	moveDirection = direction;
 		//}
-	moveDirection = direction;
+
+	if (directionBlocker)
+	{
+		if (((direction == Left || direction == Right) && (moveDirection == Up || moveDirection == Down)) ||
+			((direction == Up || direction == Down) && (moveDirection == Left || moveDirection == Right)))
+		{
+			moveDirection = direction;
+		}
+	}
+	else
+	{
+		moveDirection = direction;
+	}
+
 	std::cout << "old: " << positionOld.x() << " x " << positionOld.y() << " | new: " << positionNew.x() << " x " << positionNew.y() << std::endl;
 	std::cout << " item old: " << centralData.cellAccess(positionOld) << " item new: " << centralData.cellAccess(positionNew) << std::endl;
 

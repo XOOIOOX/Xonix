@@ -36,6 +36,7 @@ private:
 
 	CentralDataStruct& centralData;
 	PlayerDirection moveDirection{ Stop };
+	bool directionBlocker{ false };
 	QPointF positionCorrection{ 0.0, 0.0 };
 	int moveCounter;
 	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(PlayerSpeed);
