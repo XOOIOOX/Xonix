@@ -78,11 +78,6 @@ void Player::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
 
 void Player::playerMoveSlot(PlayerDirection direction)
 {
-	//if (centralData.cellAccess(positionOld) != Temp || centralData.cellAccess(positionNew) != Temp)
-		//{
-		//	moveDirection = direction;
-		//}
-
 	if (directionBlocker)
 	{
 		if (((direction == Left || direction == Right) && (moveDirection == Up || moveDirection == Down)) ||
@@ -98,6 +93,4 @@ void Player::playerMoveSlot(PlayerDirection direction)
 
 	std::cout << "old: " << positionOld.x() << " x " << positionOld.y() << " | new: " << positionNew.x() << " x " << positionNew.y() << std::endl;
 	std::cout << " item old: " << centralData.cellAccess(positionOld) << " item new: " << centralData.cellAccess(positionNew) << std::endl;
-
-	//positionCorrection = { 0.0, 0.0 };
 }
