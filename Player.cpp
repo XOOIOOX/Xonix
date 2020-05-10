@@ -36,46 +36,30 @@ void Player::advance(int phase)
 			{
 				positionNew = positionOld + directionMap[moveDirection];
 
-				if (centralData.cellAccess(positionNew) == Empty && centralData.cellAccess(positionOld) == Full)
+
+				if (centralData.cellAccess(positionOld) == Full && centralData.cellAccess(positionNew) == Empty)
 				{
 					positionBegin = positionOld;
 				}
 
-				if (centralData.cellAccess(positionNew) == Full && centralData.cellAccess(positionOld) == Temp)
+				if (centralData.cellAccess(positionOld) == Temp && centralData.cellAccess(positionNew) == Full)
 				{
-					positionBegin = positionNew;
+					positionEnd = positionNew;
 					emit contourCloseSignal();
 				}
 
-				switch (centralData.cellAccess(positionNew))
+				if ((centralData.cellAccess(positionOld) == Temp || centralData.cellAccess(positionOld) == Full) && centralData.cellAccess(positionNew) == Empty)
 				{
-					case Empty:
-					{
-						auto wall = makeItem<Wall>(centralData);
-						wall->setCellType(Temp);
-						wall->setPosition(positionNew);
-						centralData.wallsList.push_back(wall);
-						break;
-					}
-					case Full:
-					{
-						break;
-					}
-					case Temp:
-					{
-						break;
-					}
-
-					default:
-					{ break; }
+					auto wall = makeItem<Wall>(centralData);
+					wall->setCellType(Temp);
+					wall->setPosition(positionNew);
+					centralData.wallsList.push_back(wall);
 				}
 			}
 			else
 			{
 				moveDirection = Stop;
 			}
-
-			std::cout << "old x: " << positionOld.x() << " old y: " << positionOld.y() << "new x: " << positionNew.x() << " new y: " << positionNew.y() << std::endl;
 		}
 
 		moveCounter--;
@@ -93,13 +77,14 @@ void Player::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
 
 void Player::playerMoveSlot(PlayerDirection direction)
 {
-	if (direction != Stop && direction != moveDirection)
+	if (centralData.cellAccess(positionOld) != Temp || centralData.cellAccess(positionNew) != Temp)
 	{
 		moveDirection = direction;
 	}
-	else
-	{
-		moveDirection = Stop;
-		positionCorrection = { 0.0, 0.0 };
-	}
+
+	std::cout << "old: " << positionOld.x() << " x " << positionOld.y() << " | new: " << positionNew.x() << " x " << positionNew.y() << std::endl;
+	std::cout << " item old: " << centralData.cellAccess(positionOld) << " item new: " << centralData.cellAccess(positionNew) << std::endl;
+
+
+	//positionCorrection = { 0.0, 0.0 };
 }

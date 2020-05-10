@@ -16,6 +16,8 @@ public:
 	QPoint positionOld{ BadPos, BadPos };
 	QPoint positionNew = positionOld;
 	QPoint positionBegin = positionOld;
+	QPoint positionEnd = positionNew;
+
 	int lives{ 3 };
 
 	void setPosition(QPoint point);
