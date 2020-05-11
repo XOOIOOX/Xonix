@@ -91,7 +91,4 @@ void Player::playerMoveSlot(PlayerDirection direction)
 	{
 		moveDirection = direction;
 	}
-
-	std::cout << "old: " << positionOld.x() << " x " << positionOld.y() << " | new: " << positionNew.x() << " x " << positionNew.y() << std::endl;
-	std::cout << " item old: " << centralData.cellAccess(positionOld) << " item new: " << centralData.cellAccess(positionNew) << std::endl;
 }
