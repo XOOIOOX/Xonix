@@ -15,6 +15,7 @@ public:
 
 	void advance(int phase);
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
+	QPoint getPosition();
 
 signals:
 	void collisionSignal();

@@ -26,13 +26,13 @@ void Monster::advance(int phase)
 		{
 			positionOld = positionNew;
 
-			if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == Full) ||
-				 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == Full))
+			if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == Land) ||
+				 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == Land))
 			{
 				direction.rx() = -direction.x();
 			}
-			if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == Full) ||
-				 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == Full))
+			if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == Land) ||
+				 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == Land))
 			{
 				direction.ry() = -direction.y();
 			}
@@ -41,7 +41,7 @@ void Monster::advance(int phase)
 			moveCounter = round(animationSteps);
 			positionCorrection = { 0.0, 0.0 };
 
-			if (centralData.cellAccess(positionNew) == Temp)
+			if (centralData.cellAccess(positionNew) == Track)
 			{
 				emit collisionSignal();
 			}
@@ -58,6 +58,11 @@ void Monster::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, Q
 {
 	painter->setBrush(QBrush{ Qt::black, Qt::SolidPattern });
 	painter->drawEllipse(rect());
+}
+
+QPoint Monster::getPosition()
+{
+	return positionNew;
 }
 
 int Monster::randomSign() { return rand() % 2 ? 1 : -1; }

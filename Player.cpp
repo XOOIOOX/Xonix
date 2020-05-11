@@ -32,21 +32,21 @@ void Player::advance(int phase)
 
 			if (positionNew.x() < LevelWidth && positionNew.y() < LevelHeigth && positionNew.x() >= 0 && positionNew.y() >= 0)
 			{
-				if (centralData.cellAccess(positionOld) == Full && centralData.cellAccess(positionNew) == Empty)
+				if (centralData.cellAccess(positionOld) == Land && centralData.cellAccess(positionNew) == Water)
 				{
 					positionBegin = positionOld;
 				}
 
-				if (centralData.cellAccess(positionOld) == Temp && centralData.cellAccess(positionNew) == Full)
+				if (centralData.cellAccess(positionOld) == Track && centralData.cellAccess(positionNew) == Land)
 				{
 					positionEnd = positionNew;
 					emit contourCloseSignal();
 				}
 
-				if ((centralData.cellAccess(positionOld) == Temp || centralData.cellAccess(positionOld) == Full) && centralData.cellAccess(positionNew) == Empty)
+				if ((centralData.cellAccess(positionOld) == Track || centralData.cellAccess(positionOld) == Land) && centralData.cellAccess(positionNew) == Water)
 				{
 					auto wall = makeItem<Wall>(centralData);
-					wall->setCellType(Temp);
+					wall->setCellType(Track);
 					wall->setPosition(positionNew);
 					centralData.wallsList.push_back(wall);
 					directionBlocker = true;
@@ -81,7 +81,8 @@ void Player::playerMoveSlot(PlayerDirection direction)
 	if (directionBlocker)
 	{
 		if (((direction == Left || direction == Right) && (moveDirection == Up || moveDirection == Down)) ||
-			((direction == Up || direction == Down) && (moveDirection == Left || moveDirection == Right)))
+			((direction == Up || direction == Down) && (moveDirection == Left || moveDirection == Right)) ||
+			direction == Stop)
 		{
 			moveDirection = direction;
 		}

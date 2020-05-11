@@ -12,7 +12,7 @@ public:
 	Wall(CentralDataStruct& data);
 	~Wall();
 
-	CellType type{ Full };
+	CellType type{ Land };
 	QPoint position{ BadItemPos };
 
 	void setCellType(CellType celltype);

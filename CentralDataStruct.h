@@ -4,7 +4,7 @@
 
 struct CentralDataStruct
 {
-	MatrixCells level{ LevelWidth, LevelHeigth, Empty };							// матрица уровня
+	MatrixCells level{ LevelWidth, LevelHeigth, Water };							// матрица уровня
 	QGraphicsScene* scene;															// сцена для отрисовки
 	MonsterVector monsterList;														// список монстров
 	WallList wallsList;																// список стен

@@ -8,7 +8,7 @@ Wall::Wall(CentralDataStruct& data) :QObject(nullptr), QGraphicsRectItem(nullptr
 
 Wall::~Wall()
 {
-	centralData.cellAccess(position) = Empty;
+	centralData.cellAccess(position) = Water;
 	scene()->removeItem(this);
 }
 
@@ -29,7 +29,7 @@ void Wall::advance(int phase)
 
 void Wall::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
-	if (type == Full)
+	if (type == Land)
 	{
 		painter->setBrush({ QColor{ Qt::green }, Qt::SolidPattern });
 	}

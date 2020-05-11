@@ -30,12 +30,11 @@ private:
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
-
-	void makeWallFull(int x, int y);
-
+	void makeLand(int x, int y);
 	void monsterGenerator();
 	void clearMonsterList();
 	void clearWallsList();
+	void fillTemp(QPoint point);
 
 public slots:
 	void collisionSlot();

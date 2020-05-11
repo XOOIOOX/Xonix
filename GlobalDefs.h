@@ -24,8 +24,8 @@ class Wall;
 // Константы
 //////////////////////////////////////////////////////////////////////////
 
-constexpr auto LevelWidth = 30;															// ширина уровня в тайлах
-constexpr auto LevelHeigth = 30;														// высота уровня в тайлах
+constexpr auto LevelWidth = 64;															// ширина уровня в тайлах
+constexpr auto LevelHeigth = 48;														// высота уровня в тайлах
 constexpr auto TileSize = 10;															// размер тайла
 constexpr auto BorderSize = 2;															// размер начального бордюра
 constexpr auto BorderSizeMonster = BorderSize + 1;										// размер начального бордюра для монстров
@@ -47,9 +47,10 @@ enum PlayerDirection																	// направление движения 
 
 enum CellType																			// содержимое ячейки
 {
-	Empty,																				// пустая
-	Full,																				// откушенная
-	Temp																				// занятая, но не откушенная
+	Water,																				// пустая
+	Land,																				// откушенная
+	Track,																				// занятая, но не откушенная
+	Temp																				// временная для расчета заливки
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -62,10 +63,12 @@ template<typename T> using Matrix = boost::numeric::ublas::matrix<T>;
 template<typename T> using Shared = std::shared_ptr<T>;
 
 using VectorInt = Vector<int>;
+using VectorPoint = Vector<QPoint>;
 using MatrixCells = Matrix<CellType>;
 using MonsterList = List<Shared<Monster>>;
 using WallList = List<Shared<Wall>>;
 using MonsterVector = Vector<Shared<Monster>>;
+using WallVector = Vector<Shared<Wall>>;
 
 //////////////////////////////////////////////////////////////////////////
 // Общие шаблоны
