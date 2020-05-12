@@ -4,8 +4,6 @@
 Polygon::Polygon(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(data)
 {
 	centralData.scene->addItem(this);
-	//for (auto it : polygon) { scenePolygon << it * TileSize; }
-	//setRect(scenePolygon.boundingRect());
 	setZValue(0);
 }
 
@@ -51,7 +49,6 @@ void Polygon::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, Q
 
 	scenePolygon.clear();
 	for (auto it : polygon) { scenePolygon << it * TileSize; }
-
 	setRect(scenePolygon.boundingRect());
 	painter->setPen(Qt::NoPen);
 	painter->drawPolygon(scenePolygon);

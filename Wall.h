@@ -17,7 +17,7 @@ public:
 
 	void setCellType(CellType cellType);
 	void setPosition(QPoint pos);
-	void advance(int phase);
+	//void advance(int phase);
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 
 private:

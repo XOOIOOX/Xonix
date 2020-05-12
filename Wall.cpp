@@ -8,7 +8,6 @@ Wall::Wall(CentralDataStruct& data) :QObject(nullptr), QGraphicsRectItem(nullptr
 
 Wall::~Wall()
 {
-	//centralData.cellAccess(position) = Water;
 	scene()->removeItem(this);
 }
 
@@ -24,8 +23,8 @@ void Wall::setPosition(QPoint pos)
 	centralData.cellAccess(position) = type;
 }
 
-void Wall::advance(int phase)
-{}
+//void Wall::advance(int phase)
+//{}
 
 void Wall::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {

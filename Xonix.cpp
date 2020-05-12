@@ -15,13 +15,13 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	animationTimer = new QTimer(this);
 	animationTimer->setTimerType(Qt::PreciseTimer);
 	animationTimer->start(1000 / AinmationFps);
-	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
+	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()), Qt::QueuedConnection);
 	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)));
-	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()));
+	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()), Qt::QueuedConnection);
 
-	scenePolygon = new Polygon(centralData);
-	scenePolygon->setPosition({ 0, 0 });
-	scenePolygon->setPolygon({ { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } });
+	landPolygon = new Polygon(centralData);
+	landPolygon->setPosition({ 0, 0 });
+	landPolygon->setPolygon({ { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } });
 	fillLevelWithBorder();
 	monsterGenerator();
 
@@ -90,16 +90,18 @@ void Xonix::contourCloseSlot()
 		if (it == Temp) { it = Water; }
 	}
 
+	for (auto it : centralData.wallsList) { if (it->type == Track) { centralData.cellAccess(it->position) = Land; } }
+	clearWallsList();
 
-
-	for (auto it : centralData.wallsList) { if (it->type == Track) { it->setCellType(Land); } }
 	for (int y = 0; y < LevelHeigth; y++)
 	{
 		for (int x = 0; x < LevelWidth; x++)
 		{
-			if (centralData.cellAccess({ x, y }) == Land) { scenePolygon->unite({ { x, y }, { x + 1, y }, { x + 1, y + 1 }, { x, y + 1 } }); }
+			if (centralData.cellAccess({ x, y }) == Land) { landPolygon->unite({ { x, y }, { x + 1, y }, { x + 1, y + 1 }, { x, y + 1 } }); }
 		}
 	}
+
+	auto items = centralData.scene->items();
 	player.setPosition(player.positionEnd);
 	player.playerMoveSlot(Stop);
 }
@@ -148,13 +150,11 @@ void Xonix::fillLevelWithBorder()
 	// ТЕСТ
 	//////////////////////////////////////////////////////////////////////////
 
-
-
 	for (int y = 0; y < LevelHeigth; y++)
 	{
 		for (int x = 0; x < LevelWidth; x++)
 		{
-			if (centralData.cellAccess({ x, y }) == Land) { scenePolygon->unite({ { x, y }, { x + 1, y }, { x + 1, y + 1 }, { x, y + 1 } }); }
+			if (centralData.cellAccess({ x, y }) == Land) { landPolygon->unite({ { x, y }, { x + 1, y }, { x + 1, y + 1 }, { x, y + 1 } }); }
 		}
 	}
 }
