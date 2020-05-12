@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "QPainter"
-#include "Wall.h"
+#include "Track.h"
 
 Player::Player(CentralDataStruct& data) : centralData(data), QGraphicsRectItem(nullptr)
 {
@@ -32,23 +32,23 @@ void Player::advance(int phase)
 
 			if (positionNew.x() < LevelWidth && positionNew.y() < LevelHeigth && positionNew.x() >= 0 && positionNew.y() >= 0)
 			{
-				if (centralData.cellAccess(positionOld) == Land && centralData.cellAccess(positionNew) == Water)
+				if (centralData.cellAccess(positionOld) == CellType::Land && centralData.cellAccess(positionNew) == CellType::Water)
 				{
 					positionBegin = positionOld;
 				}
 
-				if (centralData.cellAccess(positionOld) == Track && centralData.cellAccess(positionNew) == Land)
+				if (centralData.cellAccess(positionOld) == CellType::Track && centralData.cellAccess(positionNew) == CellType::Land)
 				{
 					positionEnd = positionNew;
 					emit contourCloseSignal();
 				}
 
-				if ((centralData.cellAccess(positionOld) == Track || centralData.cellAccess(positionOld) == Land) && centralData.cellAccess(positionNew) == Water)
+				if ((centralData.cellAccess(positionOld) == CellType::Track || centralData.cellAccess(positionOld) == CellType::Land)
+					&& centralData.cellAccess(positionNew) == CellType::Water)
 				{
-					auto wall = makeItem<Wall>(centralData);
-					wall->setCellType(Track);
-					wall->setPosition(positionNew);
-					centralData.wallsList.push_back(wall);
+					auto track = makeItem<Track>(centralData);
+					track->setPosition(positionNew);
+					centralData.trackList.push_back(track);
 					directionBlocker = true;
 				}
 				else

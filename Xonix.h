@@ -6,9 +6,10 @@
 #include "Viewport.h"
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
-#include "Wall.h"
+#include "Track.h"
 #include "Monster.h"
 #include "Player.h"
+#include "Polygon.h"
 
 class Xonix : public QMainWindow
 {
@@ -26,11 +27,10 @@ private:
 	QTimer* animationTimer;
 	Player player{ centralData };
 	int currentLevel{ 1 };
+	Polygon* landPolygon;
 
 	void setSceneRect();										// установка размера сцены
-	void fillLevelWithBorder();									// заливка уровня бордюром
-	void clearScene();											// очистка сцены
-	void makeLand(int x, int y);
+	void fillLevelWithBorder();									// заливка уровня начальной "землей"
 	void monsterGenerator();
 	void clearMonsterList();
 	void clearWallsList();

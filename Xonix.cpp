@@ -15,10 +15,13 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	animationTimer = new QTimer(this);
 	animationTimer->setTimerType(Qt::PreciseTimer);
 	animationTimer->start(1000 / AinmationFps);
-	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()));
+	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()), Qt::QueuedConnection);
 	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)));
-	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()));
+	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()), Qt::QueuedConnection);
 
+	landPolygon = new Polygon(centralData);
+	landPolygon->setPosition({ 0, 0 });
+	landPolygon->setPolygon({ { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } });
 	fillLevelWithBorder();
 	monsterGenerator();
 
@@ -41,26 +44,13 @@ void Xonix::monsterGenerator()
 	}
 }
 
-void Xonix::clearMonsterList()
-{
-	if (!centralData.monsterList.empty()) { centralData.monsterList.clear(); }
-}
-
-void Xonix::clearWallsList()
-{
-	if (!centralData.wallsList.empty()) { centralData.wallsList.clear(); }
-}
-
 void Xonix::gameOver()
 {
 	clearWallsList();
-	//clearScene();
 	auto items = centralData.scene->items();
 	fillLevelWithBorder();
-
 	clearMonsterList();
 	monsterGenerator();
-
 	player.setPosition({ LevelWidth / 2, 0 });
 	player.lives = 3;
 	showPlayerLives();
@@ -68,13 +58,12 @@ void Xonix::gameOver()
 
 void Xonix::collisionSlot()
 {
-	centralData.wallsList.remove_if([](auto& wall) { return wall->type == Track; });
-
+	clearWallsList();
+	for (auto& it : centralData.level.data()) { if (it == CellType::Track) { it = CellType::Water; } }
 	player.setPosition(player.positionBegin);
 	player.playerMoveSlot(Stop);
 	player.lives--;
 	showPlayerLives();
-
 	if (!player.lives) { gameOver(); }
 }
 
@@ -83,30 +72,33 @@ void Xonix::contourCloseSlot()
 	for (auto it : centralData.monsterList) { fillTemp(it->getPosition()); }
 	for (auto& it : centralData.level.data())
 	{
-		if (it == Water || it == Track) { it = Land; }
-		if (it == Temp) { it = Water; }
+		if (it == CellType::Water || it == CellType::Track) { it = CellType::Land; }
+		if (it == CellType::Temp) { it = CellType::Water; }
 	}
 
-	for (auto it : centralData.wallsList) { if (it->type == Track) { it->setCellType(Land); } }
+	for (auto it : centralData.trackList) { centralData.cellAccess(it->getPosition()) = CellType::Land; }
+	clearWallsList();
+
 	for (int y = 0; y < LevelHeigth; y++)
 	{
 		for (int x = 0; x < LevelWidth; x++)
 		{
-			if (centralData.cellAccess({ x, y }) == Land) { makeLand(x, y); }
+			if (centralData.cellAccess({ x, y }) == CellType::Land) { landPolygon->unite({ { x, y }, { x + 1, y }, { x + 1, y + 1 }, { x, y + 1 } }); }
 		}
 	}
+
 	player.setPosition(player.positionEnd);
 	player.playerMoveSlot(Stop);
 }
 
 void Xonix::fillTemp(QPoint point)
 {
-	if (centralData.cellAccess(point) != Water)
+	if (centralData.cellAccess(point) != CellType::Water)
 	{
 		return;
 	}
 
-	centralData.cellAccess(point) = Temp;
+	centralData.cellAccess(point) = CellType::Temp;
 
 	for (int n = -1, o = n; o <= 1; n = ++o)
 	{
@@ -123,30 +115,24 @@ void Xonix::fillLevelWithBorder()
 	{
 		for (int x = 0; x < LevelWidth; x++)
 		{
-			makeLand(x, b);
-			makeLand(x, LevelHeigth - b - 1);
+			centralData.cellAccess({ x, b }) = CellType::Land;
+			centralData.cellAccess({ x, LevelHeigth - b - 1 }) = CellType::Land;
 		}
 
 		for (int y = 0; y < LevelHeigth; y++)
 		{
-			makeLand(b, y);
-			makeLand(LevelWidth - b - 1, y);
+			centralData.cellAccess({ b, y }) = CellType::Land;
+			centralData.cellAccess({ LevelWidth - b - 1, y }) = CellType::Land;
 		}
 	}
-}
 
-void Xonix::clearScene()
-{
-	auto items = centralData.scene->items();
-	for (auto it : items) { centralData.scene->removeItem(it); }
-}
-
-void Xonix::makeLand(int x, int y)
-{
-	auto wall = makeItem<Wall>(centralData);
-	wall->setCellType(Land);
-	wall->setPosition({ x, y });
-	centralData.wallsList.push_back(wall);
+	for (int y = 0; y < LevelHeigth; y++)
+	{
+		for (int x = 0; x < LevelWidth; x++)
+		{
+			if (centralData.cellAccess({ x, y }) == CellType::Land) { landPolygon->unite({ { x, y }, { x + 1, y }, { x + 1, y + 1 }, { x, y + 1 } }); }
+		}
+	}
 }
 
 void Xonix::setSceneRect()
@@ -155,4 +141,14 @@ void Xonix::setSceneRect()
 	rect.setWidth(LevelWidth * TileSize);
 	rect.setHeight(LevelHeigth * TileSize);
 	centralData.scene->setSceneRect(rect);
+}
+
+void Xonix::clearMonsterList()
+{
+	if (!centralData.monsterList.empty()) { centralData.monsterList.clear(); }
+}
+
+void Xonix::clearWallsList()
+{
+	if (!centralData.trackList.empty()) { centralData.trackList.clear(); }
 }

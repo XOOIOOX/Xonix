@@ -18,7 +18,7 @@
 // Предварительные объявы
 //////////////////////////////////////////////////////////////////////////
 class Monster;
-class Wall;
+class Track;
 
 //////////////////////////////////////////////////////////////////////////
 // Константы
@@ -45,7 +45,7 @@ enum PlayerDirection																	// направление движения 
 	Stop, Left, Right, Up, Down
 };
 
-enum CellType																			// содержимое ячейки
+enum class CellType																		// содержимое ячейки
 {
 	Water,																				// пустая
 	Land,																				// откушенная
@@ -66,9 +66,7 @@ using VectorInt = Vector<int>;
 using VectorPoint = Vector<QPoint>;
 using MatrixCells = Matrix<CellType>;
 using MonsterList = List<Shared<Monster>>;
-using WallList = List<Shared<Wall>>;
-using MonsterVector = Vector<Shared<Monster>>;
-using WallVector = Vector<Shared<Wall>>;
+using TrackList = List<Shared<Track>>;
 
 //////////////////////////////////////////////////////////////////////////
 // Общие шаблоны
@@ -76,4 +74,4 @@ using WallVector = Vector<Shared<Wall>>;
 
 template<typename T, typename U> auto makeItem(U& data) { return std::make_shared<T>(data); }	// сокращенный make_shared (с параметрами конструтора)
 template<typename T> auto makeItem() { return std::make_shared<T>(); }							// сокращенный make_shared (без параметров конструтора)
-template<typename T, typename U> using Unmap = std::unordered_map<T, U>;
+template<typename T, typename U> using Unmap = std::unordered_map<T, U>;						// сокращенная мапа
