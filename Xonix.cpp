@@ -20,8 +20,8 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()), Qt::QueuedConnection);
 
 	landPolygon = new Polygon(centralData);
-	landPolygon->setPosition({ 0, 0 });
-	landPolygon->setPolygon({ { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } });
+	initLandPolygon();
+
 	fillLevelInitial();
 	monsterGenerator();
 
@@ -47,9 +47,10 @@ void Xonix::monsterGenerator()
 void Xonix::gameOver()
 {
 	clearTrack();
-	auto items = centralData.scene->items();
-	fillLevelInitial();
+	clearLevel();
 	clearMonsters();
+	initLandPolygon();
+	fillLevelInitial();
 	monsterGenerator();
 	player.setPosition({ LevelWidth / 2, 0 });
 	player.lives = 3;
@@ -151,4 +152,15 @@ void Xonix::clearMonsters()
 void Xonix::clearTrack()
 {
 	if (!centralData.trackList.empty()) { centralData.trackList.clear(); }
+}
+
+void Xonix::clearLevel()
+{
+	for (auto& it : centralData.level.data()) { it = CellType::Water; }
+}
+
+void Xonix::initLandPolygon()
+{
+	landPolygon->setPosition({ 0, 0 });
+	landPolygon->setPolygon({ { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } });
 }

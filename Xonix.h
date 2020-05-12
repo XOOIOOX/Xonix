@@ -18,6 +18,8 @@ class Xonix : public QMainWindow
 public:
 	Xonix(QWidget* parent = Q_NULLPTR);
 
+	void initLandPolygon();
+
 	void showPlayerLives();
 
 private:
@@ -34,6 +36,7 @@ private:
 	void monsterGenerator();
 	void clearMonsters();
 	void clearTrack();
+	void clearLevel();
 	void fillTemp(QPoint point);
 	void gameOver();
 
