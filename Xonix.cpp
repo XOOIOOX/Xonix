@@ -21,10 +21,8 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 
 	landPolygon = new Polygon(centralData);
 	initLandPolygon();
-
 	fillLevelInitial();
 	monsterGenerator();
-
 	player.setPosition({ LevelWidth / 2, 0 });
 	centralData.scene->addItem(&player);
 	showPlayerLives();
@@ -94,11 +92,7 @@ void Xonix::contourCloseSlot()
 
 void Xonix::fillTemp(QPoint point)
 {
-	if (centralData.cellAccess(point) != CellType::Water)
-	{
-		return;
-	}
-
+	if (centralData.cellAccess(point) != CellType::Water) { return; }
 	centralData.cellAccess(point) = CellType::Temp;
 
 	for (int n = -1, o = n; o <= 1; n = ++o)
@@ -131,7 +125,10 @@ void Xonix::fillLevelInitial()
 	{
 		for (int x = 0; x < LevelWidth; x++)
 		{
-			if (centralData.cellAccess({ x, y }) == CellType::Land) { landPolygon->unite({ { x, y }, { x + 1, y }, { x + 1, y + 1 }, { x, y + 1 } }); }
+			if (centralData.cellAccess({ x, y }) == CellType::Land)
+			{
+				landPolygon->unite({ { x, y }, { x + 1, y }, { x + 1, y + 1 }, { x, y + 1 } });
+			}
 		}
 	}
 }
