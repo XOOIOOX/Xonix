@@ -30,14 +30,14 @@ private:
 	Polygon* landPolygon;
 
 	void setSceneRect();										// установка размера сцены
-	void fillLevelWithBorder();									// заливка уровня начальной "землей"
+	void fillLevelInitial();									// заливка уровня начальной "землей"
 	void monsterGenerator();
-	void clearMonsterList();
-	void clearWallsList();
+	void clearMonsters();
+	void clearTrack();
 	void fillTemp(QPoint point);
+	void gameOver();
 
 public slots:
 	void collisionSlot();
 	void contourCloseSlot();
-	void gameOver();
 };

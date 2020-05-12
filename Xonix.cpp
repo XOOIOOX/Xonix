@@ -22,7 +22,7 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	landPolygon = new Polygon(centralData);
 	landPolygon->setPosition({ 0, 0 });
 	landPolygon->setPolygon({ { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } });
-	fillLevelWithBorder();
+	fillLevelInitial();
 	monsterGenerator();
 
 	player.setPosition({ LevelWidth / 2, 0 });
@@ -46,10 +46,10 @@ void Xonix::monsterGenerator()
 
 void Xonix::gameOver()
 {
-	clearWallsList();
+	clearTrack();
 	auto items = centralData.scene->items();
-	fillLevelWithBorder();
-	clearMonsterList();
+	fillLevelInitial();
+	clearMonsters();
 	monsterGenerator();
 	player.setPosition({ LevelWidth / 2, 0 });
 	player.lives = 3;
@@ -58,7 +58,7 @@ void Xonix::gameOver()
 
 void Xonix::collisionSlot()
 {
-	clearWallsList();
+	clearTrack();
 	for (auto& it : centralData.level.data()) { if (it == CellType::Track) { it = CellType::Water; } }
 	player.setPosition(player.positionBegin);
 	player.playerMoveSlot(Stop);
@@ -77,7 +77,7 @@ void Xonix::contourCloseSlot()
 	}
 
 	for (auto it : centralData.trackList) { centralData.cellAccess(it->getPosition()) = CellType::Land; }
-	clearWallsList();
+	clearTrack();
 
 	for (int y = 0; y < LevelHeigth; y++)
 	{
@@ -109,7 +109,7 @@ void Xonix::fillTemp(QPoint point)
 	}
 }
 
-void Xonix::fillLevelWithBorder()
+void Xonix::fillLevelInitial()
 {
 	for (int b = 0; b < BorderSize; b++)
 	{
@@ -143,12 +143,12 @@ void Xonix::setSceneRect()
 	centralData.scene->setSceneRect(rect);
 }
 
-void Xonix::clearMonsterList()
+void Xonix::clearMonsters()
 {
 	if (!centralData.monsterList.empty()) { centralData.monsterList.clear(); }
 }
 
-void Xonix::clearWallsList()
+void Xonix::clearTrack()
 {
 	if (!centralData.trackList.empty()) { centralData.trackList.clear(); }
 }
