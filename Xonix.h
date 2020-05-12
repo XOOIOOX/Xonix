@@ -6,7 +6,7 @@
 #include "Viewport.h"
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
-#include "Wall.h"
+#include "Track.h"
 #include "Monster.h"
 #include "Player.h"
 #include "Polygon.h"
@@ -32,7 +32,6 @@ private:
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром
 	void clearScene();											// очистка сцены
-	void makeLand(int x, int y);
 	void monsterGenerator();
 	void clearMonsterList();
 	void clearWallsList();

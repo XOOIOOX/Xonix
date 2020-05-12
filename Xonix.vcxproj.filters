@@ -34,9 +34,6 @@
     <ClCompile Include="Viewport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,6 +44,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Polygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -63,7 +63,7 @@
     <QtMoc Include="Monster.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Wall.h">
+    <QtMoc Include="Track.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

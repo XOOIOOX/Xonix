@@ -91,7 +91,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="Viewport.cpp" />
-    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Track.cpp" />
     <ClCompile Include="Xonix.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +112,7 @@
     <ClInclude Include="Polygon.h" />
     <QtMoc Include="Monster.h" />
     <QtMoc Include="Player.h" />
-    <QtMoc Include="Wall.h" />
+    <QtMoc Include="Track.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

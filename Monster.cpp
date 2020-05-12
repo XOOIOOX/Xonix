@@ -27,13 +27,13 @@ void Monster::advance(int phase)
 		{
 			positionOld = positionNew;
 
-			if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == Land) ||
-				 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == Land))
+			if ((centralData.level(positionOld.x() + direction.x(), positionOld.y()) == CellType::Land) ||
+				 (centralData.level(positionOld.x() - direction.x(), positionOld.y()) == CellType::Land))
 			{
 				direction.rx() = -direction.x();
 			}
-			if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == Land) ||
-				 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == Land))
+			if ((centralData.level(positionOld.x(), positionOld.y() + direction.y()) == CellType::Land) ||
+				 (centralData.level(positionOld.x(), positionOld.y() - direction.y()) == CellType::Land))
 			{
 				direction.ry() = -direction.y();
 			}
@@ -42,7 +42,7 @@ void Monster::advance(int phase)
 			moveCounter = round(animationSteps);
 			positionCorrection = { 0.0, 0.0 };
 
-			if (centralData.cellAccess(positionNew) == Track)
+			if (centralData.cellAccess(positionNew) == CellType::Track)
 			{
 				emit collisionSignal();
 			}

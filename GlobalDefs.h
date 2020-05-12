@@ -18,7 +18,7 @@
 // Предварительные объявы
 //////////////////////////////////////////////////////////////////////////
 class Monster;
-class Wall;
+class Track;
 
 //////////////////////////////////////////////////////////////////////////
 // Константы
@@ -45,7 +45,7 @@ enum PlayerDirection																	// направление движения 
 	Stop, Left, Right, Up, Down
 };
 
-enum CellType																			// содержимое ячейки
+enum class CellType																			// содержимое ячейки
 {
 	Water,																				// пустая
 	Land,																				// откушенная
@@ -66,9 +66,9 @@ using VectorInt = Vector<int>;
 using VectorPoint = Vector<QPoint>;
 using MatrixCells = Matrix<CellType>;
 using MonsterList = List<Shared<Monster>>;
-using WallList = List<Shared<Wall>>;
+using WallList = List<Shared<Track>>;
 using MonsterVector = Vector<Shared<Monster>>;
-using WallVector = Vector<Shared<Wall>>;
+using WallVector = Vector<Shared<Track>>;
 
 //////////////////////////////////////////////////////////////////////////
 // Общие шаблоны

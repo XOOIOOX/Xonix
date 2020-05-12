@@ -38,7 +38,7 @@ void Polygon::unite(const VectorPoint vec)
 
 void Polygon::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
-	if (type == Land)
+	if (type == CellType::Land)
 	{
 		painter->setBrush({ QColor{ Qt::green }, Qt::SolidPattern });
 	}

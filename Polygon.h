@@ -17,7 +17,7 @@ public:
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 
 private:
-	CellType type{ Land };
+	CellType type{ CellType::Land };
 	QPoint position{ BadItemPos };
 	CentralDataStruct& centralData;
 	QPolygon polygon{ QVector<QPoint> { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } } };
