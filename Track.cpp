@@ -18,6 +18,11 @@ void Track::setPosition(QPoint pos)
 	centralData.cellAccess(position) = CellType::Track;
 }
 
+QPoint Track::getPosition()
+{
+	return position;
+}
+
 void Track::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
 	painter->setBrush({ QColor{ Qt::blue }, Qt::SolidPattern });

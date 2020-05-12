@@ -12,11 +12,11 @@ public:
 	Track(CentralDataStruct& data);
 	~Track();
 
-	QPoint position{ BadItemPos };
-
 	void setPosition(QPoint pos);
+	QPoint getPosition();
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 
 private:
 	CentralDataStruct& centralData;
+	QPoint position{ BadItemPos };
 };

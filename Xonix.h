@@ -30,8 +30,7 @@ private:
 	Polygon* landPolygon;
 
 	void setSceneRect();										// установка размера сцены
-	void fillLevelWithBorder();									// заливка уровня бордюром
-	void clearScene();											// очистка сцены
+	void fillLevelWithBorder();									// заливка уровня начальной "землей"
 	void monsterGenerator();
 	void clearMonsterList();
 	void clearWallsList();

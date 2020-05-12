@@ -44,25 +44,13 @@ void Xonix::monsterGenerator()
 	}
 }
 
-void Xonix::clearMonsterList()
-{
-	if (!centralData.monsterList.empty()) { centralData.monsterList.clear(); }
-}
-
-void Xonix::clearWallsList()
-{
-	if (!centralData.trackList.empty()) { centralData.trackList.clear(); }
-}
-
 void Xonix::gameOver()
 {
 	clearWallsList();
 	auto items = centralData.scene->items();
 	fillLevelWithBorder();
-
 	clearMonsterList();
 	monsterGenerator();
-
 	player.setPosition({ LevelWidth / 2, 0 });
 	player.lives = 3;
 	showPlayerLives();
@@ -70,14 +58,12 @@ void Xonix::gameOver()
 
 void Xonix::collisionSlot()
 {
-	//centralData.wallsList.remove_if([](auto& wall) { return wall->type == CellType::Track; });
 	clearWallsList();
 	for (auto& it : centralData.level.data()) { if (it == CellType::Track) { it = CellType::Water; } }
 	player.setPosition(player.positionBegin);
 	player.playerMoveSlot(Stop);
 	player.lives--;
 	showPlayerLives();
-
 	if (!player.lives) { gameOver(); }
 }
 
@@ -90,7 +76,7 @@ void Xonix::contourCloseSlot()
 		if (it == CellType::Temp) { it = CellType::Water; }
 	}
 
-	for (auto it : centralData.trackList) { centralData.cellAccess(it->position) = CellType::Land; }
+	for (auto it : centralData.trackList) { centralData.cellAccess(it->getPosition()) = CellType::Land; }
 	clearWallsList();
 
 	for (int y = 0; y < LevelHeigth; y++)
@@ -101,7 +87,6 @@ void Xonix::contourCloseSlot()
 		}
 	}
 
-	auto items = centralData.scene->items();
 	player.setPosition(player.positionEnd);
 	player.playerMoveSlot(Stop);
 }
@@ -141,10 +126,6 @@ void Xonix::fillLevelWithBorder()
 		}
 	}
 
-	//////////////////////////////////////////////////////////////////////////
-	// ТЕСТ
-	//////////////////////////////////////////////////////////////////////////
-
 	for (int y = 0; y < LevelHeigth; y++)
 	{
 		for (int x = 0; x < LevelWidth; x++)
@@ -154,16 +135,20 @@ void Xonix::fillLevelWithBorder()
 	}
 }
 
-void Xonix::clearScene()
-{
-	auto items = centralData.scene->items();
-	for (auto it : items) { centralData.scene->removeItem(it); }
-}
-
 void Xonix::setSceneRect()
 {
 	QRect rect;
 	rect.setWidth(LevelWidth * TileSize);
 	rect.setHeight(LevelHeigth * TileSize);
 	centralData.scene->setSceneRect(rect);
+}
+
+void Xonix::clearMonsterList()
+{
+	if (!centralData.monsterList.empty()) { centralData.monsterList.clear(); }
+}
+
+void Xonix::clearWallsList()
+{
+	if (!centralData.trackList.empty()) { centralData.trackList.clear(); }
 }

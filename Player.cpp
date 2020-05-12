@@ -46,9 +46,9 @@ void Player::advance(int phase)
 				if ((centralData.cellAccess(positionOld) == CellType::Track || centralData.cellAccess(positionOld) == CellType::Land)
 					&& centralData.cellAccess(positionNew) == CellType::Water)
 				{
-					auto wall = makeItem<Track>(centralData);
-					wall->setPosition(positionNew);
-					centralData.trackList.push_back(wall);
+					auto track = makeItem<Track>(centralData);
+					track->setPosition(positionNew);
+					centralData.trackList.push_back(track);
 					directionBlocker = true;
 				}
 				else
