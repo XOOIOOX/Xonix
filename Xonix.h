@@ -9,6 +9,7 @@
 #include "Wall.h"
 #include "Monster.h"
 #include "Player.h"
+#include "Polygon.h"
 
 class Xonix : public QMainWindow
 {

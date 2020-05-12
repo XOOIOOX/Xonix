@@ -15,7 +15,7 @@ public:
 	CellType type{ Land };
 	QPoint position{ BadItemPos };
 
-	void setCellType(CellType celltype);
+	void setCellType(CellType cellType);
 	void setPosition(QPoint pos);
 	void advance(int phase);
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
