@@ -30,6 +30,8 @@ private:
 	Player player{ centralData };
 	int currentLevel{ 1 };
 	Polygon* landPolygon;
+	int allCellsNumber = LevelWidth * LevelHeigth;
+	int filledCellsNumber{ allCellsNumber };
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelInitial();									// заливка уровня начальной "землей"

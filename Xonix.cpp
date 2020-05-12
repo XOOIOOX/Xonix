@@ -95,11 +95,11 @@ void Xonix::fillTemp(QPoint point)
 	if (centralData.cellAccess(point) != CellType::Water) { return; }
 	centralData.cellAccess(point) = CellType::Temp;
 
-	for (int n = -1, o = n; o <= 1; n = ++o)
+	for (int xFill = -1, xIt = xFill; xIt <= 1; xFill = ++xIt)
 	{
-		for (int l = -1, m = l; m <= 1; l = ++m)
+		for (int yFill = -1, yIt = yFill; yIt <= 1; yFill = ++yIt)
 		{
-			fillTemp({ point.x() + n, point.y() + l });
+			fillTemp({ point.x() + xFill, point.y() + yFill });
 		}
 	}
 }
