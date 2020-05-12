@@ -1,9 +1,12 @@
 #include "Polygon.h"
 #include "QVector"
 
-Polygon::Polygon(CentralDataStruct& data) : QGraphicsPolygonItem(nullptr), centralData(data)
+Polygon::Polygon(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(data)
 {
 	centralData.scene->addItem(this);
+	//for (auto it : polygon) { scenePolygon << it * TileSize; }
+	//setRect(scenePolygon.boundingRect());
+	setZValue(0);
 }
 
 Polygon::~Polygon()
@@ -14,6 +17,7 @@ Polygon::~Polygon()
 void Polygon::setCellType(CellType cellType)
 {
 	type = cellType;
+	update();
 }
 
 void Polygon::setPosition(QPoint pos)
@@ -25,11 +29,13 @@ void Polygon::setPosition(QPoint pos)
 void Polygon::setPolygon(const VectorPoint vec)
 {
 	polygon = QPolygon(QVector<QPoint>::fromStdVector(vec));
+	update();
 }
 
 void Polygon::unite(const VectorPoint vec)
 {
 	polygon = polygon.united(QPolygon(QVector<QPoint>::fromStdVector(vec)));
+	update();
 }
 
 void Polygon::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
@@ -43,11 +49,10 @@ void Polygon::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, Q
 		painter->setBrush({ QColor{ Qt::blue }, Qt::SolidPattern });
 	}
 
-	for (auto it : polygon)
-	{
-		scenePolygon << it * TileSize;
-	}
+	scenePolygon.clear();
+	for (auto it : polygon) { scenePolygon << it * TileSize; }
 
+	setRect(scenePolygon.boundingRect());
 	painter->setPen(Qt::NoPen);
 	painter->drawPolygon(scenePolygon);
 }

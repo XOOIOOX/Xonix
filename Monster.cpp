@@ -10,6 +10,7 @@ Monster::Monster(CentralDataStruct& data) : QObject(nullptr), QGraphicsRectItem(
 	positionOld = positionNew;
 	moveCounter = round(animationSteps);
 	centralData.scene->addItem(this);
+	setZValue(2);
 }
 
 Monster::~Monster()

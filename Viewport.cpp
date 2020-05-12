@@ -6,7 +6,7 @@ Viewport::Viewport(QWidget* parent) : QGraphicsView(parent)
 {
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+	//setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
 	setRenderHints(QPainter::Antialiasing);
 }
 

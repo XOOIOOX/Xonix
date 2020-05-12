@@ -27,6 +27,7 @@ private:
 	QTimer* animationTimer;
 	Player player{ centralData };
 	int currentLevel{ 1 };
+	Polygon* scenePolygon;
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelWithBorder();									// заливка уровня бордюром

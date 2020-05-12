@@ -4,7 +4,7 @@
 #include "CentralDataStruct.h"
 #include <QGraphicsPolygonItem>
 
-class Polygon : public QGraphicsPolygonItem
+class Polygon : public QGraphicsRectItem
 {
 public:
 	Polygon(CentralDataStruct& data);

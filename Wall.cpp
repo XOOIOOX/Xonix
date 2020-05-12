@@ -8,7 +8,7 @@ Wall::Wall(CentralDataStruct& data) :QObject(nullptr), QGraphicsRectItem(nullptr
 
 Wall::~Wall()
 {
-	centralData.cellAccess(position) = Water;
+	//centralData.cellAccess(position) = Water;
 	scene()->removeItem(this);
 }
 
