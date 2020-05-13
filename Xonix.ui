@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>741</width>
-      <height>711</height>
+      <height>491</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -33,14 +33,40 @@
    <widget class="QLabel" name="livesLabel">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>30</y>
+      <x>190</x>
+      <y>670</y>
       <width>161</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Lives:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="scoreLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>670</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Score:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="capturedLabel">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>670</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Captured:</string>
     </property>
    </widget>
   </widget>

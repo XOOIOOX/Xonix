@@ -20,7 +20,7 @@ public:
 
 	void initLandPolygon();
 
-	void showPlayerLives();
+	void showPlayerInfo();
 
 private:
 	Ui::Xonix ui;
@@ -31,9 +31,10 @@ private:
 	int currentLevel{ 1 };
 	Polygon* landPolygon;
 	int allCells{ 0 };
-	int landCells{ 0 };
+	int capturedCells{ 0 };
 	int borderCells{ 0 };
-	int percentFilled{ 0 };
+	int capturedPercent{ 0 };
+	int score{ 0 };
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelInitial();									// заливка уровня начальной "землей"
@@ -48,4 +49,6 @@ private:
 public slots:
 	void collisionSlot();
 	void contourCloseSlot();
+
+	void initLevel();
 };

@@ -25,12 +25,14 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	monsterGenerator();
 	player.setPosition({ LevelWidth / 2, 0 });
 	centralData.scene->addItem(&player);
-	showPlayerLives();
+	showPlayerInfo();
 }
 
-void Xonix::showPlayerLives()
+void Xonix::showPlayerInfo()
 {
 	ui.livesLabel->setText("Lives: " + QString::number(player.lives));
+	ui.scoreLabel->setText("Score: " + QString::number(score));
+	ui.capturedLabel->setText("Captured: " + QString::number(capturedPercent) + "%");
 }
 
 void Xonix::monsterGenerator()
@@ -45,15 +47,11 @@ void Xonix::monsterGenerator()
 void Xonix::gameOver()
 {
 	currentLevel = 1;
-	clearTrack();
-	clearLevel();
-	clearMonsters();
-	initLandPolygon();
-	fillLevelInitial();
-	monsterGenerator();
-	player.setPosition({ LevelWidth / 2, 0 });
+	capturedCells = 0;
+	score = 0;
+	initLevel();
 	player.lives = 3;
-	showPlayerLives();
+	showPlayerInfo();
 }
 
 void Xonix::collisionSlot()
@@ -63,12 +61,14 @@ void Xonix::collisionSlot()
 	player.setPosition(player.positionBegin);
 	player.playerMoveSlot(Stop);
 	player.lives--;
-	showPlayerLives();
+	showPlayerInfo();
 	if (!player.lives) { gameOver(); }
 }
 
 void Xonix::contourCloseSlot()
 {
+	auto previousCapturedCells = filledCellsCalc() - borderCells;
+
 	for (auto it : centralData.monsterList) { fillTemp(it->getPosition()); }
 	for (auto& it : centralData.level.data())
 	{
@@ -90,21 +90,24 @@ void Xonix::contourCloseSlot()
 	player.setPosition(player.positionEnd);
 	player.playerMoveSlot(Stop);
 
-	landCells = filledCellsCalc() - borderCells;
+	capturedCells = filledCellsCalc() - borderCells;
 	allCells = LevelWidth * LevelHeigth - borderCells;
-	percentFilled = round((static_cast<double>(landCells) / static_cast<double>(allCells)) * 100.0);
+	capturedPercent = round((static_cast<double>(capturedCells) / static_cast<double>(allCells)) * 100.0);
+	score += (capturedCells - previousCapturedCells) * 10;
+	if (capturedPercent >= 75) { currentLevel++; initLevel(); }
+	showPlayerInfo();
+}
 
-	if (percentFilled >= 75)
-	{
-		currentLevel++;
-		clearTrack();
-		clearLevel();
-		clearMonsters();
-		initLandPolygon();
-		fillLevelInitial();
-		monsterGenerator();
-		player.setPosition({ LevelWidth / 2, 0 });
-	}
+void Xonix::initLevel()
+{
+	clearTrack();
+	clearLevel();
+	clearMonsters();
+	initLandPolygon();
+	fillLevelInitial();
+	monsterGenerator();
+	player.setPosition({ LevelWidth / 2, 0 });
+	capturedPercent = 0;
 }
 
 int Xonix::filledCellsCalc()
