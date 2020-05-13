@@ -4,6 +4,7 @@
 #include "GlobalDefs.h"
 #include "CentralDataStruct.h"
 #include <utility>
+#include <QGraphicsEffect>
 
 class Monster : public QObject, public QGraphicsRectItem
 {
@@ -28,6 +29,11 @@ private:
 	QPoint direction{ 1, 1 };
 	int moveCounter;
 	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(MonsterSpeed);
+
+	QColor effectColor = { Qt::green };
+	QGraphicsDropShadowEffect* effect;
+	int blurRadius = 40;
+	double opacity = 0.9;
 
 	int randomSign();
 };

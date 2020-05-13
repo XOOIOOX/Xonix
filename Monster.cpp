@@ -11,6 +11,13 @@ Monster::Monster(CentralDataStruct& data) : QObject(nullptr), QGraphicsRectItem(
 	moveCounter = round(animationSteps);
 	centralData.scene->addItem(this);
 	setZValue(2);
+
+	effect = new QGraphicsDropShadowEffect();
+	effect->setBlurRadius(blurRadius);
+	effectColor.setAlphaF(opacity);
+	effect->setColor(effectColor);
+	effect->setOffset(0);
+	this->setGraphicsEffect(effect);
 }
 
 Monster::~Monster()
@@ -57,8 +64,17 @@ void Monster::advance(int phase)
 
 void Monster::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
-	painter->setBrush(QBrush{ Qt::black, Qt::SolidPattern });
+	painter->setBrush(QBrush{ Qt::green, Qt::SolidPattern });
 	painter->drawEllipse(rect());
+	auto secondRect = rect();
+	secondRect.setSize(secondRect.size() / 1.7);
+	secondRect.moveCenter(rect().center());
+	painter->setBrush(QBrush{ Qt::black, Qt::SolidPattern });
+	painter->drawEllipse(secondRect);
+	secondRect.setSize(secondRect.size() / 1.2);
+	secondRect.moveCenter(rect().center());
+	painter->setBrush(QBrush{ Qt::green, Qt::SolidPattern });
+	painter->drawEllipse(secondRect);
 }
 
 QPoint Monster::getPosition()

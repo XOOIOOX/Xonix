@@ -3,6 +3,7 @@
 #include "GlobalDefs.h"
 #include <QPainter>
 #include "CentralDataStruct.h"
+#include <QGraphicsEffect>
 
 class Track : public QObject, public QGraphicsRectItem
 {

@@ -25,7 +25,7 @@ QPoint Track::getPosition()
 
 void Track::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
-	painter->setBrush({ QColor{ Qt::blue }, Qt::SolidPattern });
+	painter->setBrush({ QColor{ 0xffffe617 }, Qt::Dense7Pattern });
 	painter->setPen(Qt::NoPen);
 	painter->drawRect(rect());
 }

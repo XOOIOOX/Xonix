@@ -1,14 +1,17 @@
 #include "Xonix.h"
 #include <algorithm>
+#include <QFontDatabase>
 
 Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 {
+	QFontDatabase::addApplicationFont(":/Resources/04B_30__.TTF");
+
 	ui.setupUi(this);
 	view = ui.view;
 	centralData.scene = new QGraphicsScene(view->rect(), this);
 	setSceneRect();
 	auto viewRect = centralData.scene->sceneRect().toRect();
-	//viewRect.moveCenter(rect().center());
+	viewRect.moveCenter(rect().center());
 	view->setGeometry(viewRect);
 	view->setScene(centralData.scene);
 
@@ -20,16 +23,20 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()), Qt::QueuedConnection);
 
 	landPolygon = new Polygon(centralData);
-	initLandPolygon();
-	fillLevelInitial();
-	monsterGenerator();
-	player.setPosition({ LevelWidth / 2, 0 });
-	centralData.scene->addItem(&player);
+	initLevel();
 	showPlayerInfo();
+	centralData.scene->addItem(&player);
 }
 
 void Xonix::showPlayerInfo()
 {
+	QFont font;
+	font.setFamily("04b");
+	font.setPixelSize(20);
+	ui.livesLabel->setFont(font);
+	ui.scoreLabel->setFont(font);
+	ui.capturedLabel->setFont(font);
+
 	ui.livesLabel->setText("Lives: " + QString::number(player.lives));
 	ui.scoreLabel->setText("Score: " + QString::number(score));
 	ui.capturedLabel->setText("Captured: " + QString::number(capturedPercent) + "%");

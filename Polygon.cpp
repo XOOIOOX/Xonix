@@ -40,11 +40,11 @@ void Polygon::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, Q
 {
 	if (type == CellType::Land)
 	{
-		painter->setBrush({ QColor{ Qt::green }, Qt::SolidPattern });
+		painter->setBrush({ QColor{ 255, 170, 255 }, Qt::DiagCrossPattern });
 	}
 	else
 	{
-		painter->setBrush({ QColor{ Qt::blue }, Qt::SolidPattern });
+		painter->setBrush({ QColor{ Qt::blue }, Qt::DiagCrossPattern });
 	}
 
 	scenePolygon.clear();

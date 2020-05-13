@@ -30,9 +30,9 @@ constexpr auto LevelHeigth = 48;														// высота уровня в т
 constexpr auto TileSize = 12;															// размер тайла
 constexpr auto BorderSize = 2;															// размер начального бордюра
 constexpr auto BorderSizeMonster = BorderSize + 1;										// размер начального бордюра для монстров
-constexpr auto AinmationFps = 60;														// кадров в секунду
-constexpr auto MonsterSpeed = 22;														// скорость монстра
-constexpr auto PlayerSpeed = 22;														// скорость игрока
+constexpr auto AinmationFps = 120;														// кадров в секунду
+constexpr auto MonsterSpeed = 20;														// скорость монстра
+constexpr auto PlayerSpeed = 20;														// скорость игрока
 constexpr auto BadPos = -1;																// неверная позиция
 constexpr QPoint BadItemPos = QPoint{ BadPos, BadPos };									// неверная позиция итема
 
