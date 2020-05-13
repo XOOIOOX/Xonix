@@ -25,9 +25,9 @@ class Track;
 // Константы
 //////////////////////////////////////////////////////////////////////////
 
-constexpr auto LevelWidth = 64;															// ширина уровня в тайлах
-constexpr auto LevelHeigth = 48;														// высота уровня в тайлах
-constexpr auto TileSize = 12;															// размер тайла
+constexpr auto LevelWidth = 84;															// ширина уровня в тайлах
+constexpr auto LevelHeigth = 52;														// высота уровня в тайлах
+constexpr auto TileSize = 16;															// размер тайла
 constexpr auto BorderSize = 2;															// размер начального бордюра
 constexpr auto BorderSizeMonster = BorderSize + 1;										// размер начального бордюра для монстров
 constexpr auto AinmationFps = 120;														// кадров в секунду
