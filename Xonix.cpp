@@ -9,11 +9,9 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	ui.setupUi(this);
 	view = ui.view;
 	centralData.scene = new QGraphicsScene(view->rect(), this);
-	setSceneRect();
-	auto viewRect = centralData.scene->sceneRect().toRect();
-	viewRect.moveCenter(rect().center());
-	view->setGeometry(viewRect);
-	view->setScene(centralData.scene);
+	initView();
+
+	initLabels();
 
 	animationTimer = new QTimer(this);
 	animationTimer->setTimerType(Qt::PreciseTimer);
@@ -28,15 +26,35 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	centralData.scene->addItem(&player);
 }
 
-void Xonix::showPlayerInfo()
+void Xonix::initLabels()
 {
 	QFont font;
 	font.setFamily("04b");
-	font.setPixelSize(20);
+	font.setPixelSize(18);
 	ui.livesLabel->setFont(font);
 	ui.scoreLabel->setFont(font);
 	ui.capturedLabel->setFont(font);
 
+	ui.livesLabel->move(view->rect().bottomLeft());
+	ui.scoreLabel->move({ view->rect().center().x() - ui.scoreLabel->width() / 2, view->rect().bottom() });
+	ui.capturedLabel->move({ view->rect().bottomRight().x() - ui.capturedLabel->width(), view->rect().bottom() });
+}
+
+void Xonix::initView()
+{
+	setSceneRect();
+	auto viewRect = centralData.scene->sceneRect().toRect();
+	auto windowRect = viewRect;
+	windowRect.setSize({ viewRect.width(), viewRect.height() + ui.livesLabel->height() });
+	this->resize(windowRect.size());
+	viewRect.moveCenter(rect().center());
+	viewRect.moveTop(0);
+	view->setGeometry(viewRect);
+	view->setScene(centralData.scene);
+}
+
+void Xonix::showPlayerInfo()
+{
 	ui.livesLabel->setText("Lives: " + QString::number(player.lives));
 	ui.scoreLabel->setText("Score: " + QString::number(score));
 	ui.capturedLabel->setText("Captured: " + QString::number(capturedPercent) + "%");

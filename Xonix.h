@@ -18,6 +18,10 @@ class Xonix : public QMainWindow
 public:
 	Xonix(QWidget* parent = Q_NULLPTR);
 
+	void initLabels();
+
+	void initView();
+
 	void initLandPolygon();
 
 	void showPlayerInfo();
