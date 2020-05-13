@@ -30,8 +30,10 @@ private:
 	Player player{ centralData };
 	int currentLevel{ 1 };
 	Polygon* landPolygon;
-	int allCellsNumber = LevelWidth * LevelHeigth;
-	int filledCellsNumber{ allCellsNumber };
+	int allCells{ 0 };
+	int landCells{ 0 };
+	int borderCells{ 0 };
+	int percentFilled{ 0 };
 
 	void setSceneRect();										// установка размера сцены
 	void fillLevelInitial();									// заливка уровня начальной "землей"
@@ -41,6 +43,7 @@ private:
 	void clearLevel();
 	void fillTemp(QPoint point);
 	void gameOver();
+	int filledCellsCalc();
 
 public slots:
 	void collisionSlot();

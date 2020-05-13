@@ -13,6 +13,7 @@
 #include <type_traits>
 #include <memory>
 #include <unordered_map>
+#include "QMetaType"
 
 //////////////////////////////////////////////////////////////////////////
 // Предварительные объявы
@@ -74,3 +75,4 @@ using TrackList = List<Shared<Track>>;
 template<typename T, typename U> auto makeItem(U& data) { return std::make_shared<T>(data); }	// сокращенный make_shared (с параметрами конструтора)
 template<typename T> auto makeItem() { return std::make_shared<T>(); }							// сокращенный make_shared (без параметров конструтора)
 template<typename T, typename U> using Unmap = std::unordered_map<T, U>;						// сокращенная мапа
+

@@ -16,7 +16,7 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	animationTimer->setTimerType(Qt::PreciseTimer);
 	animationTimer->start(1000 / AinmationFps);
 	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()), Qt::QueuedConnection);
-	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)));
+	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)), Qt::QueuedConnection);
 	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()), Qt::QueuedConnection);
 
 	landPolygon = new Polygon(centralData);
@@ -44,6 +44,7 @@ void Xonix::monsterGenerator()
 
 void Xonix::gameOver()
 {
+	currentLevel = 1;
 	clearTrack();
 	clearLevel();
 	clearMonsters();
@@ -88,6 +89,27 @@ void Xonix::contourCloseSlot()
 
 	player.setPosition(player.positionEnd);
 	player.playerMoveSlot(Stop);
+
+	landCells = filledCellsCalc() - borderCells;
+	allCells = LevelWidth * LevelHeigth - borderCells;
+	percentFilled = round((static_cast<double>(landCells) / static_cast<double>(allCells)) * 100.0);
+
+	if (percentFilled >= 75)
+	{
+		currentLevel++;
+		clearTrack();
+		clearLevel();
+		clearMonsters();
+		initLandPolygon();
+		fillLevelInitial();
+		monsterGenerator();
+		player.setPosition({ LevelWidth / 2, 0 });
+	}
+}
+
+int Xonix::filledCellsCalc()
+{
+	return std::count_if(centralData.level.data().begin(), centralData.level.data().end(), [](auto cell) { return cell == CellType::Land; });
 }
 
 void Xonix::fillTemp(QPoint point)
@@ -131,6 +153,8 @@ void Xonix::fillLevelInitial()
 			}
 		}
 	}
+
+	borderCells = filledCellsCalc();
 }
 
 void Xonix::setSceneRect()
