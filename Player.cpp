@@ -16,6 +16,8 @@ void Player::setPosition(QPoint point)
 {
 	positionOld = point;
 	positionNew = point;
+	positionBegin = point;
+	positionEnd = point;
 	setPos(point * TileSize);
 }
 

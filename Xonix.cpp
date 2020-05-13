@@ -9,8 +9,8 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	ui.setupUi(this);
 	view = ui.view;
 	centralData.scene = new QGraphicsScene(view->rect(), this);
-	initView();
 
+	initView();
 	initLabels();
 
 	animationTimer = new QTimer(this);
@@ -35,9 +35,9 @@ void Xonix::initLabels()
 	ui.scoreLabel->setFont(font);
 	ui.capturedLabel->setFont(font);
 
-	ui.livesLabel->move(view->rect().bottomLeft());
-	ui.scoreLabel->move({ view->rect().center().x() - ui.scoreLabel->width() / 2, view->rect().bottom() });
-	ui.capturedLabel->move({ view->rect().bottomRight().x() - ui.capturedLabel->width(), view->rect().bottom() });
+	ui.scoreLabel->move({view->rect().left() + BorderSize * TileSize, view->rect().bottom()});
+	ui.livesLabel->move({ view->rect().center().x() - ui.livesLabel->width() / 2, view->rect().bottom() });
+	ui.capturedLabel->move({ view->rect().bottomRight().x() - ui.capturedLabel->width() - BorderSize *TileSize, view->rect().bottom() });
 }
 
 void Xonix::initView()
@@ -47,6 +47,8 @@ void Xonix::initView()
 	auto windowRect = viewRect;
 	windowRect.setSize({ viewRect.width(), viewRect.height() + ui.livesLabel->height() });
 	this->resize(windowRect.size());
+	this->setWindowFlags(Qt::Widget);
+	this->setFixedSize(this->size());
 	viewRect.moveCenter(rect().center());
 	viewRect.moveTop(0);
 	view->setGeometry(viewRect);

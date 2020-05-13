@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1234</width>
+    <width>810</width>
     <height>731</height>
    </rect>
   </property>
@@ -73,7 +73,7 @@ background-color: rgba(255, 255, 255, 0);</string>
      <string>Score:</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="capturedLabel">
@@ -93,7 +93,7 @@ background-color: rgba(255, 255, 255, 0);</string>
      <string>Captured:</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
   </widget>
