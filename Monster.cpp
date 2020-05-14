@@ -1,6 +1,5 @@
 #include "Monster.h"
 #include "QPainter"
-#include "QColor"
 
 Monster::Monster(CentralDataStruct& data) : QObject(nullptr), QGraphicsRectItem(nullptr), centralData(data)
 {

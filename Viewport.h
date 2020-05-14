@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QGraphicsView>
 #include "GlobalDefs.h"
+#include <QGraphicsView>
 
 class Viewport : public QGraphicsView
 {
@@ -11,9 +11,9 @@ public:
 	Viewport(QWidget* parent);
 	~Viewport();
 
-	void keyPressEvent(QKeyEvent* event);
-	void keyReleaseEvent(QKeyEvent* event);
+	void keyPressEvent(QKeyEvent* event);										// ивент нажания кнопки
+	void keyReleaseEvent(QKeyEvent* event);										// ивент отпускания кнопки
 
 signals:
-	void playerMoveSignal(PlayerDirection direction);
+	void playerMoveSignal(PlayerDirection direction);							// сигнал для перемещения игрока
 };

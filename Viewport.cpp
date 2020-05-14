@@ -1,6 +1,5 @@
-#include <QMouseEvent>
 #include "Viewport.h"
-#include <iostream>
+#include "qevent.h"
 
 Viewport::Viewport(QWidget* parent) : QGraphicsView(parent)
 {

@@ -1,9 +1,10 @@
 #pragma once
-#include <qgraphicsitem.h>
-#include "GlobalDefs.h"
-#include <QPainter>
+
 #include "CentralDataStruct.h"
+#include "GlobalDefs.h"
 #include <QGraphicsEffect>
+#include <qgraphicsitem.h>
+#include <QPainter>
 
 class Track : public QObject, public QGraphicsRectItem
 {
@@ -13,11 +14,11 @@ public:
 	Track(CentralDataStruct& data);
 	~Track();
 
-	void setPosition(QPoint pos);
-	QPoint getPosition();
+	void setPosition(QPoint pos);																				// установка позиции
+	QPoint getPosition();																						// считывание позиции
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 
 private:
-	CentralDataStruct& centralData;
-	QPoint position{ BadItemPos };
+	CentralDataStruct& centralData;																				// ссылка на общие данные
+	QPoint position{ BadItemPos };																				// позиция на уровне
 };

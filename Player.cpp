@@ -1,12 +1,11 @@
 #include "Player.h"
-#include "QPainter"
 #include "Track.h"
 
 Player::Player(CentralDataStruct& data) : centralData(data), QGraphicsRectItem(nullptr)
 {
 	setRect(0, 0, TileSize, TileSize);
 	moveCounter = round(animationSteps);
-	setZValue(10);
+	setZValue(3);
 }
 
 Player::~Player()
