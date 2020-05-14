@@ -34,12 +34,36 @@
     <ClCompile Include="Viewport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CentralDataStruct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Xonix.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Viewport.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Player.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Monster.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Track.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -60,5 +84,13 @@
     <ClInclude Include="CentralDataStruct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Polygon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\04B_30__.TTF">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

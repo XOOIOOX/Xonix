@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="Xonix">
+    <qresource prefix="/">
+        <file>Resources/04B_30__.TTF</file>
     </qresource>
 </RCC>
