@@ -1,8 +1,9 @@
 #pragma once
-#include "GlobalDefs.h"
-#include <QPainter>
+
 #include "CentralDataStruct.h"
+#include "GlobalDefs.h"
 #include <QGraphicsPolygonItem>
+#include <QPainter>
 
 class Polygon : public QGraphicsRectItem
 {
@@ -10,16 +11,15 @@ public:
 	Polygon(CentralDataStruct& data);
 	~Polygon();
 
-	void setCellType(CellType cellType);
-	void setPosition(QPoint pos);
-	void setPolygon(const VectorPoint vec);
-	void unite(const VectorPoint vec);
-	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
+	void setPosition(QPoint pos);																			// установка позиции
+	void setPolygon(const VectorPoint vec);																	// установка полигона
+	void unite(const VectorPoint vec);																		// объединение текущего полигона с новым
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);		
 
 private:
-	CellType type{ CellType::Land };
-	QPoint position{ BadItemPos };
-	CentralDataStruct& centralData;
-	QPolygon polygon{ QVector<QPoint> { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } } };
-	QPolygon scenePolygon;
+	CellType type{ CellType::Land };																		// тип ячейки (по умолчанию "земля")
+	QPoint position{ BadItemPos };																			// позиция на уровне
+	CentralDataStruct& centralData;																			// ссылка на общие данные
+	QPolygon polygon{ QVector<QPoint> { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 } } };							// полигон в координатах уровня
+	QPolygon scenePolygon;																					// полигон в координатах сцены
 };

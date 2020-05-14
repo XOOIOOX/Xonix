@@ -1,5 +1,4 @@
 #include "Polygon.h"
-#include "QVector"
 
 Polygon::Polygon(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralData(data)
 {
@@ -10,12 +9,6 @@ Polygon::Polygon(CentralDataStruct& data) : QGraphicsRectItem(nullptr), centralD
 Polygon::~Polygon()
 {
 	scene()->removeItem(this);
-}
-
-void Polygon::setCellType(CellType cellType)
-{
-	type = cellType;
-	update();
 }
 
 void Polygon::setPosition(QPoint pos)

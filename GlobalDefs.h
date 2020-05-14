@@ -1,19 +1,11 @@
 #pragma once
 
-#include <vector>
-#include <list>
 #include <boost/numeric/ublas/matrix.hpp>
-#include <QPoint>
-#include <QSize>
-#include <QGraphicsItem>
-#include <QGraphicsPixmapItem>
-#include <QObject>
-#include <QRect>
+#include <list>
 #include <QGraphicsScene>
-#include <type_traits>
-#include <memory>
+#include <QPoint>
 #include <unordered_map>
-#include "QMetaType"
+#include <vector>
 
 //////////////////////////////////////////////////////////////////////////
 // Предварительные объявы
@@ -62,7 +54,6 @@ template<typename T> using List = std::list<T>;
 template<typename T> using Matrix = boost::numeric::ublas::matrix<T>;
 template<typename T> using Shared = std::shared_ptr<T>;
 
-using VectorInt = Vector<int>;
 using VectorPoint = Vector<QPoint>;
 using MatrixCells = Matrix<CellType>;
 using MonsterList = List<Shared<Monster>>;
@@ -75,4 +66,3 @@ using TrackList = List<Shared<Track>>;
 template<typename T, typename U> auto makeItem(U& data) { return std::make_shared<T>(data); }	// сокращенный make_shared (с параметрами конструтора)
 template<typename T> auto makeItem() { return std::make_shared<T>(); }							// сокращенный make_shared (без параметров конструтора)
 template<typename T, typename U> using Unmap = std::unordered_map<T, U>;						// сокращенная мапа
-

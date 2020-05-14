@@ -1,6 +1,6 @@
-#include "Xonix.h"
-#include <QtWidgets/QApplication>
 #include "QMetaType"
+#include "Xonix.h"
+#include <QApplication>
 
 Q_DECLARE_METATYPE(PlayerDirection);
 auto PlayerDirectionId = qRegisterMetaType<PlayerDirection>();

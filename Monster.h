@@ -1,10 +1,9 @@
 #pragma once
-#include <qgraphicsitem.h>
-#include <QTimer>
-#include "GlobalDefs.h"
+
 #include "CentralDataStruct.h"
-#include <utility>
+#include "GlobalDefs.h"
 #include <QGraphicsEffect>
+#include <qgraphicsitem.h>
 
 class Monster : public QObject, public QGraphicsRectItem
 {
@@ -16,24 +15,24 @@ public:
 
 	void advance(int phase);
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
-	QPoint getPosition();
+	QPoint getPosition();																					// получение позиции монстра
 
 signals:
-	void collisionSignal();
+	void collisionSignal();																					// сигнал столкновения с "треком"
 
 private:
-	CentralDataStruct& centralData;
-	QPoint positionNew{ BadItemPos };
-	QPoint positionOld = positionNew;
-	QPointF positionCorrection{ 0.0, 0.0 };
-	QPoint direction{ 1, 1 };
-	int moveCounter;
-	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(MonsterSpeed);
+	CentralDataStruct& centralData;																			// ссылка на общие данные
+	QPoint positionNew{ BadItemPos };																		// новая позиция монстра
+	QPoint positionOld = positionNew;																		// старая позиция монстра
+	QPointF positionCorrection{ 0.0, 0.0 };																	// добавочная позиция между ячеек
+	QPoint direction{ 1, 1 };																				// направление движения
+	int moveCounter;																						// счетчик перемещения
+	double animationSteps = static_cast<double>(AinmationFps) / static_cast<double>(MonsterSpeed);			// количество кадров анимации исходя из FPS и скорости монстра
 
-	QColor effectColor = { Qt::green };
-	QGraphicsDropShadowEffect* effect;
-	int blurRadius = 40;
-	double opacity = 0.9;
+	QColor effectColor = { Qt::green };																		// цвет тенюшки
+	QGraphicsDropShadowEffect* effect;																		// объект эффекта тенюшки
+	int blurRadius = 40;																					// радиус тенюшки
+	double opacity = 0.9;																					// прозрачность тенюшки
 
-	int randomSign();
+	int randomSign();																						// рандом направления перемещения
 };

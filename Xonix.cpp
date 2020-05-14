@@ -4,7 +4,7 @@
 
 Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 {
-	QFontDatabase::addApplicationFont(":/Resources/04B_30__.TTF");
+	QFontDatabase::addApplicationFont(":/Resources/04B_30__.TTF");										// загрузка шрифта в базу приложения
 
 	ui.setupUi(this);
 	view = ui.view;
@@ -94,7 +94,7 @@ void Xonix::collisionSlot()
 
 void Xonix::contourCloseSlot()
 {
-	auto previousCapturedCells = filledCellsCalc() - borderCells;
+	auto previousCapturedCells = filledCellsCalc() - borderCells;								// количество ранее захваченных ячеек
 
 	for (auto it : centralData.monsterList) { fillTemp(it->getPosition()); }
 	for (auto& it : centralData.level.data())
