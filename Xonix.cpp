@@ -16,9 +16,9 @@ Xonix::Xonix(QWidget* parent) : QMainWindow(parent)
 	animationTimer = new QTimer(this);
 	animationTimer->setTimerType(Qt::PreciseTimer);
 	animationTimer->start(1000 / AinmationFps);
-	connect(animationTimer, SIGNAL(timeout()), centralData.scene, SLOT(advance()), Qt::QueuedConnection);
-	connect(view, SIGNAL(playerMoveSignal(PlayerDirection)), &player, SLOT(playerMoveSlot(PlayerDirection)), Qt::QueuedConnection);
-	connect(&player, SIGNAL(contourCloseSignal()), this, SLOT(contourCloseSlot()), Qt::QueuedConnection);
+	connect(animationTimer, &QTimer::timeout, centralData.scene, &QGraphicsScene::advance, Qt::QueuedConnection);
+	connect(view, &Viewport::playerMoveSignal, &player, &Player::playerMoveSlot, Qt::QueuedConnection);
+	connect(&player, &Player::contourCloseSignal, this, &Xonix::contourCloseSlot, Qt::QueuedConnection);
 
 	landPolygon = new Polygon(centralData);
 	initLevel();
@@ -67,7 +67,7 @@ void Xonix::monsterGenerator()
 	for (int i = 0; i < currentLevel; i++)
 	{
 		centralData.monsterList.push_back(makeItem<Monster>(centralData));
-		connect(&*centralData.monsterList.back(), SIGNAL(collisionSignal()), this, SLOT(collisionSlot()), Qt::QueuedConnection);
+		connect(&*centralData.monsterList.back(), &Monster::collisionSignal, this, &Xonix::collisionSlot, Qt::QueuedConnection);
 	}
 }
 
